@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Jeopardy — Player vs AI</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>AC Fundamentals Jeopardy — Player vs AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -575,492 +575,367 @@
 const QUESTION_BANK = {
   // ==================== ROUND 1: JEOPARDY ====================
 
-  "DC Concepts": [
+  "AC Basics": [
     {
-      id: "dc-001",
+      id: "ac-001",
       difficulty: 1,
       pointValue: 100,
       timeLimit: 10,
-      question: "This is the unit of measurement for electrical 'pressure' or potential difference.",
-      answers: ["Amperes (Amps)", "Ohms (Ω)", "Volts (V)", "Watts (W)"],
-      correctIndex: 2,
-      explanation: "Voltage (Volts) is the electrical pressure that causes current to flow.",
-      reference: "Fundamentals of DC"
+      question: "This is what the letters 'AC' stand for in electrical systems.",
+      answers: ["Automatic Current", "Alternating Current", "Advanced Circuits", "Amp Conductors"],
+      correctIndex: 1,
+      explanation: "AC stands for Alternating Current - electricity that periodically reverses direction.",
+      reference: "AC Fundamentals"
     },
     {
-      id: "dc-002",
+      id: "ac-002",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "This is the unit of measurement for the rate of electron flow in a circuit.",
-      answers: ["Amperes (Amps)", "Ohms (Ω)", "Volts (V)", "Watts (W)"],
+      question: "Aircraft AC power systems typically operate at this frequency, higher than the 60 Hz in homes.",
+      answers: ["400 Hz", "120 Hz", "50 Hz", "1000 Hz"],
       correctIndex: 0,
-      explanation: "Current (Amperes) is the measure of how many electrons flow past a point per second.",
-      reference: "Fundamentals of DC"
+      explanation: "Aircraft use 400 Hz AC power for weight savings - allows smaller, lighter transformers and motors.",
+      reference: "Aircraft AC Systems"
     },
     {
-      id: "dc-003",
+      id: "ac-003",
       difficulty: 3,
       pointValue: 300,
       timeLimit: 14,
-      question: "A material, like rubber or plastic, that strongly opposes the flow of current is called:",
-      answers: ["A conductor", "A semiconductor", "A resistor", "An insulator"],
-      correctIndex: 3,
-      explanation: "Insulators have very high resistance and are used to prevent current from flowing where it is not wanted.",
-      reference: "Conductors vs. Insulators"
+      question: "This type of voltage measurement represents the 'effective' DC equivalent of an AC waveform.",
+      answers: ["Peak Voltage", "Peak-to-Peak Voltage", "RMS Voltage", "Average Voltage"],
+      correctIndex: 2,
+      explanation: "RMS (Root Mean Square) voltage is the effective value. For sine waves, Vrms = 0.707 × Vp.",
+      reference: "AC Measurements"
     },
     {
-      id: "dc-004",
+      id: "ac-004",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 15,
-      question: "This is the unit of measurement for the opposition to current flow.",
-      answers: ["Amperes (Amps)", "Ohms (Ω)", "Volts (V)", "Watts (W)"],
-      correctIndex: 1,
-      explanation: "Resistance (Ohms) is the property that opposes the flow of current.",
-      reference: "Fundamentals of DC"
+      question: "For a sine wave with 100V peak voltage, this is the peak-to-peak voltage.",
+      answers: ["100V", "141V", "200V", "70.7V"],
+      correctIndex: 2,
+      explanation: "Peak-to-Peak voltage = 2 × Peak voltage. So 100V peak = 200V peak-to-peak.",
+      reference: "AC Voltage Calculations"
     },
     {
-      id: "dc-005",
+      id: "ac-005",
       difficulty: 4,
       pointValue: 500,
       timeLimit: 18,
-      question: "In 'Direct Current' (DC), the electrons flow in:",
-      answers: ["Two directions, alternating", "One direction only", "A circular, spinning pattern", "High-frequency pulses"],
+      question: "The time required for one complete AC cycle is called this, measured in seconds.",
+      answers: ["Frequency", "Period", "Wavelength", "Phase"],
       correctIndex: 1,
-      explanation: "Direct Current (DC) is defined by its unidirectional flow, typically from negative to positive.",
-      reference: "AC vs. DC"
+      explanation: "Period (T) is the time for one complete cycle. Period = 1/frequency. At 400 Hz, T = 2.5 milliseconds.",
+      reference: "AC Time Relationships"
     }
   ],
 
-  "Ohm's Law": [
+  "Oscilloscopes": [
     {
-      id: "ohm-001",
+      id: "scope-001",
       difficulty: 1,
       pointValue: 100,
       timeLimit: 10,
-      question: "What is the correct formula for Ohm's Law?",
-      answers: ["V = I x R", "R = V x I", "I = V x R", "P = V x I"],
-      correctIndex: 0,
-      explanation: "Ohm's Law states Voltage (V) equals Current (I) multiplied by Resistance (R).",
-      reference: "Ohm's Law Formula"
+      question: "This test instrument displays electrical signals as waveforms showing voltage over time.",
+      answers: ["Multimeter", "Oscilloscope", "Function Generator", "Frequency Counter"],
+      correctIndex: 1,
+      explanation: "An oscilloscope is the primary tool for viewing AC waveforms and analyzing signal behavior.",
+      reference: "Test Equipment"
     },
     {
-      id: "ohm-002",
+      id: "scope-002",
       difficulty: 2,
       pointValue: 200,
-      timeLimit: 15,
-      question: "A 10-ohm resistor has 2 amps of current flowing through it. What is the voltage drop across it?",
-      answers: ["5 Volts", "12 Volts", "0.2 Volts", "20 Volts"],
-      correctIndex: 3,
-      explanation: "Using V = I x R: 2 Amps * 10 Ohms = 20 Volts.",
-      reference: "Ohm's Law Calculation"
+      timeLimit: 12,
+      question: "This oscilloscope control sets how fast the waveform sweeps across the screen horizontally.",
+      answers: ["Vertical Scale", "Trigger Level", "Time Base", "Amplitude"],
+      correctIndex: 2,
+      explanation: "The Time Base (timebase) control sets the horizontal sweep speed, measured in time/division.",
+      reference: "Oscilloscope Controls"
     },
     {
-      id: "ohm-003",
+      id: "scope-003",
       difficulty: 3,
       pointValue: 300,
-      timeLimit: 15,
-      question: "A 28-volt circuit has a resistance of 7 ohms. How much current is flowing?",
-      answers: ["4 Amps", "196 Amps", "21 Amps", "0.25 Amps"],
-      correctIndex: 0,
-      explanation: "Using I = V / R: 28 Volts / 7 Ohms = 4 Amps.",
-      reference: "Ohm's Law Calculation"
+      timeLimit: 14,
+      question: "This oscilloscope control stabilizes a repeating waveform to prevent it from rolling across the screen.",
+      answers: ["Time Base", "Vertical Scale", "Trigger", "Ground Reference"],
+      correctIndex: 2,
+      explanation: "The Trigger starts each sweep at the same point in the waveform cycle, creating a stable display.",
+      reference: "Oscilloscope Operation"
     },
     {
-      id: "ohm-004",
+      id: "scope-004",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 15,
-      question: "A lamp connected to a 14-volt source draws 2 amps. What is the lamp's resistance?",
-      answers: ["28 Ohms", "12 Ohms", "7 Ohms", "16 Ohms"],
-      correctIndex: 2,
-      explanation: "Using R = V / I: 14 Volts / 2 Amps = 7 Ohms.",
-      reference: "Ohm's Law Calculation"
+      question: "Most oscilloscope probes have this attenuation ratio to reduce circuit loading.",
+      answers: ["1:1 (no attenuation)", "10:1", "100:1", "2:1"],
+      correctIndex: 1,
+      explanation: "10:1 (10X) probes reduce loading effects and allow measurement of higher voltages.",
+      reference: "Oscilloscope Probes"
     },
     {
-      id: "ohm-005",
+      id: "scope-005",
       difficulty: 4,
       pointValue: 500,
       timeLimit: 18,
-      question: "In a circuit with constant voltage, if you double the resistance, what happens to the current?",
-      answers: ["It doubles", "It stays the same", "It is cut in half", "It becomes zero"],
+      question: "A waveform shows 4 divisions peak-to-peak at 50V/div. This is the peak-to-peak voltage.",
+      answers: ["50V", "100V", "200V", "400V"],
       correctIndex: 2,
-      explanation: "Current and resistance are inversely proportional (I = V/R). If R doubles, I is halved.",
-      reference: "Ohm's Law Relationships"
+      explanation: "4 divisions × 50V/div = 200V peak-to-peak.",
+      reference: "Oscilloscope Measurements"
     }
   ],
 
-  "The Power Law": [
+  "Inductors & Transformers": [
     {
-      id: "pwr-001",
+      id: "ind-001",
       difficulty: 1,
       pointValue: 100,
       timeLimit: 10,
-      question: "What is the basic formula for electrical power (Watt's Law)?",
-      answers: ["P = I x R", "P = V / I", "P = V x I", "P = V / R"],
+      question: "This passive component stores energy in a magnetic field and consists of a coil of wire.",
+      answers: ["Capacitor", "Resistor", "Inductor", "Transformer"],
       correctIndex: 2,
-      explanation: "Power (P) in Watts equals Voltage (V) multiplied by Current (I).",
-      reference: "Power Law Formula"
+      explanation: "An inductor stores energy in a magnetic field when current flows through its coil.",
+      reference: "Passive Components"
     },
     {
-      id: "pwr-002",
+      id: "ind-002",
       difficulty: 2,
       pointValue: 200,
-      timeLimit: 15,
-      question: "A 28V circuit is drawing 10 amps. How much power is being consumed?",
-      answers: ["2.8 Watts", "280 Watts", "38 Watts", "0.35 Watts"],
-      correctIndex: 1,
-      explanation: "Using P = V x I: 28 Volts * 10 Amps = 280 Watts.",
-      reference: "Power Law Calculation"
+      timeLimit: 12,
+      question: "Inductive reactance does this as frequency increases.",
+      answers: ["Decreases", "Stays the same", "Increases", "Becomes zero"],
+      correctIndex: 2,
+      explanation: "Inductive reactance (XL = 2πfL) increases with frequency - inductors block high frequencies.",
+      reference: "AC Reactance"
     },
     {
-      id: "pwr-003",
+      id: "ind-003",
       difficulty: 3,
       pointValue: 300,
-      timeLimit: 15,
-      question: "What is the alternate formula for power when you only know current and resistance?",
-      answers: ["P = I² / R", "P = R² / I", "P = I x R²", "P = I² x R"],
-      correctIndex: 3,
-      explanation: "Since V = IR, substitute (IR) for V in P=VI, which gives P = (IR)I, or P = I²R.",
-      reference: "Power Law Formula"
+      timeLimit: 14,
+      question: "In a pure inductor AC circuit, current does this relative to voltage.",
+      answers: ["Leads by 90°", "Is in phase", "Lags by 90°", "Leads by 45°"],
+      correctIndex: 2,
+      explanation: "In inductors, current lags voltage by 90° - the current is 'late' compared to voltage.",
+      reference: "AC Phase Relationships"
     },
     {
-      id: "pwr-004",
+      id: "ind-004",
       difficulty: 3,
       pointValue: 400,
-      timeLimit: 18,
-      question: "A 100-ohm resistor has 2 amps flowing through it. How much power is it dissipating?",
-      answers: ["200 Watts", "50 Watts", "400 Watts", "0.02 Watts"],
+      timeLimit: 15,
+      question: "A transformer with 10 primary turns and 100 secondary turns is this type.",
+      answers: ["Step-down", "Isolation", "Step-up", "Autotransformer"],
       correctIndex: 2,
-      explanation: "Using P = I² x R: (2 Amps * 2 Amps) * 100 Ohms = 400 Watts.",
-      reference: "Power Law Calculation"
+      explanation: "More secondary turns than primary = step-up transformer (increases voltage, decreases current).",
+      reference: "Transformers"
     },
     {
-      id: "pwr-005",
+      id: "ind-005",
       difficulty: 4,
       pointValue: 500,
       timeLimit: 18,
-      question: "What is the alternate formula for power when you only know voltage and resistance?",
-      answers: ["P = V² / R", "P = R² / V", "P = V x R²", "P = V² x R"],
-      correctIndex: 0,
-      explanation: "Since I = V/R, substitute (V/R) for I in P=VI, which gives P = V(V/R), or P = V²/R.",
-      reference: "Power Law Formula"
+      question: "A transformer with 10:1 turns ratio at 115V primary produces this secondary voltage.",
+      answers: ["1150V", "11.5V", "115V", "10V"],
+      correctIndex: 1,
+      explanation: "Step-down transformer: Vs = Vp × (Ns/Np) = 115V × (1/10) = 11.5V",
+      reference: "Transformer Calculations"
     }
   ],
 
   // ==================== ROUND 2: DOUBLE JEOPARDY ====================
 
-  "Series Circuits": [
+  "Capacitors": [
     {
-      id: "ser-201",
+      id: "cap-201",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "In a series circuit, the total resistance (Rt) is calculated by:",
-      answers: ["Averaging all resistors", "Using the smallest resistor value", "Adding all individual resistances", "Rt = (R1*R2)/(R1+R2)"],
-      correctIndex: 2,
-      explanation: "In a series circuit, resistances add up: Rt = R1 + R2 + R3 + ...",
-      reference: "Series Circuit Rules"
+      question: "This passive component stores energy in an electric field between two conductive plates.",
+      answers: ["Inductor", "Resistor", "Transformer", "Capacitor"],
+      correctIndex: 3,
+      explanation: "A capacitor stores electrical energy in an electric field created by charge separation.",
+      reference: "Passive Components"
     },
     {
-      id: "ser-202",
+      id: "cap-202",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 14,
-      question: "What is the rule for current in a series circuit?",
-      answers: ["It is the same through all components", "It divides at each component", "It is highest at the last component", "It is zero at the end of the loop"],
-      correctIndex: 0,
-      explanation: "A series circuit has only one path, so the current (flow) must be the same everywhere.",
-      reference: "Series Circuit Rules"
+      question: "Capacitive reactance does this as frequency increases.",
+      answers: ["Increases", "Decreases", "Stays constant", "Becomes infinite"],
+      correctIndex: 1,
+      explanation: "Capacitive reactance (Xc = 1/(2πfC)) decreases as frequency increases - capacitors pass high frequencies.",
+      reference: "AC Reactance"
     },
     {
-      id: "ser-203",
+      id: "cap-203",
       difficulty: 4,
       pointValue: 600,
       timeLimit: 16,
-      question: "Three resistors are in series: 10 ohms, 20 ohms, and 30 ohms. What is the total resistance?",
-      answers: ["30 Ohms", "5.45 Ohms", "60 Ohms", "6000 Ohms"],
+      question: "In a pure capacitor AC circuit, current does this relative to voltage.",
+      answers: ["Lags by 90°", "Is in phase", "Leads by 90°", "Lags by 45°"],
       correctIndex: 2,
-      explanation: "Rt = R1 + R2 + R3. 10 + 20 + 30 = 60 Ohms.",
-      reference: "Series Circuit Calculation"
+      explanation: "In capacitors, current leads voltage by 90° - the current is 'early' compared to voltage.",
+      reference: "AC Phase Relationships"
     },
     {
-      id: "ser-204",
+      id: "cap-204",
       difficulty: 4,
       pointValue: 800,
       timeLimit: 18,
-      question: "This law states that the sum of all voltage drops in a series loop equals the source voltage.",
-      answers: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Watt's Law", "Kirchhoff's Voltage Law (KVL)"],
-      correctIndex: 3,
-      explanation: "Kirchhoff's Voltage Law (KVL) describes how voltage is distributed in a closed loop.",
-      reference: "Kirchhoff's Voltage Law"
+      question: "This type of capacitor is polarized and MUST be connected with correct polarity or it fails catastrophically.",
+      answers: ["Ceramic", "Film", "Electrolytic", "Variable"],
+      correctIndex: 2,
+      explanation: "Electrolytic capacitors are polarized and will fail (potentially explode) if connected backward.",
+      reference: "Capacitor Types & Safety"
     },
     {
-      id: "ser-205",
+      id: "cap-205",
       difficulty: 5,
       pointValue: 1000,
       timeLimit: 20,
-      question: "If one of three bulbs connected in series burns out (fails open), what happens to the other two?",
-      answers: ["They get brighter", "They get dimmer", "They both go out", "They are unaffected"],
-      correctIndex: 2,
-      explanation: "A burned-out bulb creates an open circuit, breaking the only path for current and stopping all flow.",
-      reference: "Series Circuit Troubleshooting"
+      question: "For capacitors in series, total capacitance follows this mathematical rule.",
+      answers: ["Add them (C1 + C2)", "Reciprocal rule (1/Ct = 1/C1 + 1/C2)", "Multiply them", "Use largest value"],
+      correctIndex: 1,
+      explanation: "Series capacitors use reciprocal rule - total capacitance is less than smallest individual capacitor.",
+      reference: "Capacitor Calculations"
     }
   ],
 
-  "Parallel Circuits": [
+  "Test Equipment": [
     {
-      id: "par-201",
+      id: "equip-201",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "What is the rule for voltage in a parallel circuit?",
-      answers: ["It is the same across all branches", "It divides equally among all branches", "It is zero across all branches", "It is highest at the first branch"],
-      correctIndex: 0,
-      explanation: "Components in parallel are connected across the same two points, so they must have the same voltage.",
-      reference: "Parallel Circuit Rules"
+      question: "This test instrument produces various AC waveforms with adjustable frequency and amplitude.",
+      answers: ["Oscilloscope", "Multimeter", "Function Generator", "Power Supply"],
+      correctIndex: 2,
+      explanation: "A Function Generator creates test signals (sine, square, triangle waves) for circuit testing.",
+      reference: "Test Equipment"
     },
     {
-      id: "par-202",
+      id: "equip-202",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 14,
-      question: "This law states that the total current entering a junction must equal the total current leaving it.",
-      answers: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Watt's Law", "Kirchhoff's Voltage Law (KVL)"],
-      correctIndex: 1,
-      explanation: "Kirchhoff's Current Law (KCL) describes how current splits in parallel branches.",
-      reference: "Kirchhoff's Current Law"
+      question: "This control on a function generator shifts the AC waveform up or down from zero volts.",
+      answers: ["Amplitude", "Frequency", "DC Offset", "Attenuation"],
+      correctIndex: 2,
+      explanation: "DC Offset adds a DC component to shift the AC waveform vertically on the oscilloscope.",
+      reference: "Function Generator Controls"
     },
     {
-      id: "par-203",
+      id: "equip-203",
       difficulty: 4,
       pointValue: 600,
       timeLimit: 16,
-      question: "Two 10-ohm resistors are in parallel. What is their total resistance?",
-      answers: ["20 Ohms", "10 Ohms", "5 Ohms", "0 Ohms"],
-      correctIndex: 2,
-      explanation: "Using (R1*R2)/(R1+R2): (10*10)/(10+10) = 100/20 = 5 Ohms. Total R is always less than the smallest branch.",
-      reference: "Parallel Circuit Calculation"
+      question: "The typical output impedance of most function generators is this value in Ohms.",
+      answers: ["10 Ohms", "50 Ohms", "100 Ohms", "1000 Ohms"],
+      correctIndex: 1,
+      explanation: "Most function generators have 50 Ohm output impedance, standard for RF and test equipment.",
+      reference: "Function Generator Specifications"
     },
     {
-      id: "par-204",
+      id: "equip-204",
       difficulty: 4,
       pointValue: 800,
       timeLimit: 18,
-      question: "In a parallel circuit, total current (It) is calculated by:",
-      answers: ["Using the smallest branch current", "Averaging all branch currents", "Adding all individual branch currents", "It = I1 x I2 x I3..."],
+      question: "When using a 10X oscilloscope probe, you must multiply the displayed voltage by this factor.",
+      answers: ["0.1", "1", "10", "100"],
       correctIndex: 2,
-      explanation: "Total current is the sum of the currents in each branch: It = I1 + I2 + I3 + ...",
-      reference: "Parallel Circuit Rules"
+      explanation: "A 10X probe attenuates the signal by 10, so you must multiply readings by 10 to get actual voltage.",
+      reference: "Oscilloscope Measurements"
     },
     {
-      id: "par-205",
+      id: "equip-205",
       difficulty: 5,
       pointValue: 1000,
       timeLimit: 20,
-      question: "If one of three bulbs connected in parallel burns out (fails open), what happens to the other two?",
-      answers: ["They get brighter", "They get dimmer", "They both go out", "They are unaffected"],
-      correctIndex: 3,
-      explanation: "Each parallel branch is independent. An open in one branch does not affect the others.",
-      reference: "Parallel Circuit Troubleshooting"
+      question: "This waveform type contains many harmonic frequencies, useful for testing circuit frequency response.",
+      answers: ["Sine wave", "Triangle wave", "Square wave", "Sawtooth wave"],
+      correctIndex: 2,
+      explanation: "Square waves contain the fundamental frequency plus odd harmonics, excellent for frequency response testing.",
+      reference: "Waveform Analysis"
     }
   ],
 
-  "Multimeter & Troubleshooting": [
+  "Aircraft AC Power": [
     {
-      id: "mtr-201",
+      id: "aircraft-201",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "To measure voltage (VDC), a multimeter must be connected:",
-      answers: ["In series with the circuit", "In parallel (across) the component", "With the circuit power OFF", "In the AMPS jack"],
-      correctIndex: 1,
-      explanation: "Voltage is a measurement of potential difference, so the meter must be placed in parallel (across) the points.",
-      reference: "Multimeter Usage"
+      question: "Aircraft AC power systems typically use this type of multi-phase power for efficiency.",
+      answers: ["Single-phase", "Two-phase", "Three-phase", "Four-phase"],
+      correctIndex: 2,
+      explanation: "Three-phase AC provides constant power delivery and allows smaller, lighter motors and generators.",
+      reference: "Aircraft Power Systems"
     },
     {
-      id: "mtr-202",
+      id: "aircraft-202",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 14,
-      question: "To measure current (AMPS), a multimeter must be connected:",
-      answers: ["In series (in-line) with the circuit", "In parallel (across) the component", "With the circuit power OFF", "In the VOLTS jack"],
-      correctIndex: 0,
-      explanation: "Current is a measure of flow, so the circuit must be opened and the meter placed in series (in-line).",
-      reference: "Multimeter Usage"
+      question: "This device converts AC generator output to DC for battery charging and DC bus systems.",
+      answers: ["Inverter", "Transformer", "Rectifier", "Alternator"],
+      correctIndex: 2,
+      explanation: "A rectifier uses diodes to convert AC to DC by allowing current flow in only one direction.",
+      reference: "Power Conversion"
     },
     {
-      id: "mtr-203",
+      id: "aircraft-203",
       difficulty: 4,
       pointValue: 600,
       timeLimit: 16,
-      question: "What is the most critical safety step before measuring resistance (Ohms)?",
-      answers: ["Set the meter to the highest range", "Verify the meter's battery is good", "Ensure all circuit power is OFF", "Use alligator clips for safety"],
+      question: "This device converts DC battery power to AC for critical instruments during generator failure.",
+      answers: ["Rectifier", "Transformer", "Inverter", "Converter"],
       correctIndex: 2,
-      explanation: "An ohmmeter sends its own voltage. Measuring a powered circuit will, at minimum, destroy the meter.",
-      reference: "Multimeter Safety"
+      explanation: "An inverter converts DC to AC, providing backup 115V 400Hz AC power from 28V DC battery.",
+      reference: "Emergency Power Systems"
     },
     {
-      id: "mtr-204",
+      id: "aircraft-204",
       difficulty: 4,
       pointValue: 800,
       timeLimit: 18,
-      question: "A technician reads 'OL' or 'Infinity' on their ohmmeter when checking a wire. This indicates:",
-      answers: ["A 'short circuit' to ground", "A good, low-resistance wire", "An 'open circuit' or break", "The wire has high current"],
-      correctIndex: 2,
-      explanation: "'OL' (Over Limit) means the resistance is too high to measure, indicating a break (an open circuit).",
-      reference: "Troubleshooting Opens"
+      question: "Standard 60 Hz ground power causes this problem when connected to 400 Hz aircraft systems.",
+      answers: ["No effect", "Equipment damage/malfunction", "Improved efficiency", "Reduced noise"],
+      correctIndex: 1,
+      explanation: "Wrong frequency causes motors to run wrong speeds, transformer saturation, and equipment damage.",
+      reference: "Aircraft Ground Power"
     },
     {
-      id: "mtr-205",
+      id: "aircraft-205",
       difficulty: 5,
       pointValue: 1000,
       timeLimit: 20,
-      question: "A technician reads 0.2 Ohms when measuring from a wire to the aircraft airframe. This indicates:",
-      answers: ["A 'short circuit' to ground", "A good, isolated wire", "An 'open circuit' in the wire", "The wire's normal resistance"],
-      correctIndex: 0,
-      explanation: "A very low resistance path from a wire to ground (airframe) is the definition of a short circuit.",
-      reference: "Troubleshooting Shorts"
+      question: "Aircraft use 400 Hz primarily for this critical weight-saving benefit.",
+      answers: ["Better voltage regulation", "Lower cost", "Smaller/lighter transformers & motors", "Less electromagnetic interference"],
+      correctIndex: 2,
+      explanation: "Higher frequency allows magnetic components to be much smaller and lighter - crucial for aircraft.",
+      reference: "Aircraft Design Considerations"
     }
   ],
 
   // ==================== FINAL JEOPARDY ====================
 
-  FINAL: {
-    cat: "Applied Circuit Troubleshooting",
-    difficulty: 5,
-    timeLimit: 30,
-    question: "A component does not work. A technician measures 28V at the component's positive terminal and 26V at its ground terminal (relative to airframe). The circuit breaker is NOT tripped. What is the most likely fault?",
-    answers: [
-      "A short circuit in the power wire",
-      "A high-resistance (open) ground connection",
-      "A failed (open) component",
-      "A shorted (failed) component"
-    ],
-    correctIndex: 1,
-    explanation: "A good ground should read near 0V. Reading 26V on the ground wire means the ground path is open or has high resistance, and the voltage is 'floating' up to the supply voltage.",
-    reference: "Troubleshooting Ground Faults"
+  "FINAL": {
+    category: "AC Power Systems",
+    question: "This mathematical relationship describes the condition where inductive and capacitive reactance are equal, causing them to cancel out and creating minimum impedance in a series circuit. The formula is f = 1/(2π√LC).",
+    answer: "What is resonance (or resonant frequency)?",
+    explanation: "Resonance occurs when XL = Xc, causing reactive components to cancel. This principle is used in tuned circuits, filters, and radio receivers. At resonance, a series LC circuit has minimum impedance (only resistance remains), while a parallel LC circuit has maximum impedance.",
+    reference: "AC Circuit Theory - Resonance",
+    timeLimit: 30
   }
 };
-
-
-/* ========================================================================
-   END OF CUSTOMIZABLE QUESTION BANK SECTION
-   ======================================================================== */
-
-/* Game State */
-const GameState = {
-  TILE_SELECTION: 'TILE_SELECTION',
-  QUESTION_READING: 'QUESTION_READING',
-  BUZZER_ACTIVE: 'BUZZER_ACTIVE',
-  ANSWERING: 'ANSWERING',
-  SHOWING_RESULT: 'SHOWING_RESULT',
-  DAILY_DOUBLE: 'DAILY_DOUBLE',
-  ROUND_TRANSITION: 'ROUND_TRANSITION',
-  FINAL_JEOPARDY: 'FINAL_JEOPARDY',
-  GAME_OVER: 'GAME_OVER'
-};
-
-let gameState = GameState.TILE_SELECTION;
-let currentRound = 1; // 1 = Jeopardy, 2 = Double Jeopardy
-let tiles = {};
-let playerScore = 0, aiScore = 0;
-let currentTurn = 'player';
-let currentQ = null;
-let buzzWinner = null;
-let dailyDoubleIds = [];
-let questionsLeft = 15;
-let aiBuzzTimeout = null;
-
-/* AI Settings */
-const AI_DIFFICULTY = {
-  easy: { reactionMin: 2000, reactionMax: 3500, accuracy: 0.55, name: 'Easy' },
-  medium: { reactionMin: 1500, reactionMax: 2500, accuracy: 0.70, name: 'Medium' },
-  hard: { reactionMin: 1000, reactionMax: 2000, accuracy: 0.80, name: 'Hard' },
-  expert: { reactionMin: 800, reactionMax: 1500, accuracy: 0.88, name: 'Expert' }
-};
-let currentDifficulty = 'medium';
-
-/* Timer */
-let TMAX = 10, t = TMAX, tInt = null, soundOn = true;
-/* Track current Daily Double wager so timeouts score correctly */
-let currentDDWager = 0;
-
-/* DOM */
-const $ = s => document.querySelector(s);
-const catRow = $('#catRow'), qLeft = $('#qLeft');
-const pScore = $('#pScore'), aiScoreEl = $('#aiScore');
-const playerBox = $('#playerBox'), aiBox = $('#aiBox');
-const playerTurn = $('#playerTurn'), aiTurn = $('#aiTurn');
-const rows = [$('#valRow1'), $('#valRow2'), $('#valRow3'), $('#valRow4'), $('#valRow5')];
-const qCard = $('#qCard'), qCat = $('#qCat'), qValue = $('#qValue'), qText = $('#qText');
-const choices = $('#choices'), feedback = $('#feedback'), closeQ = $('#closeQ');
-const buzzSection = $('#buzzSection'), playerBuzz = $('#playerBuzz'), aiBuzz = $('#aiBuzz');
-const qTimer = $('#qTimer'), tFill = $('#tFill'), tLeft = $('#tLeft');
-const ddBadge = $('#ddBadge'), ddModal = $('#ddModal');
-const confetti = $('#confetti');
-const muteBtn = $('#mute'), difficultyBtn = $('#difficultyBtn');
-const fjModal = $('#fjModal'), fjCat = $('#fjCat'), fjStart = $('#fjStart');
-const fjPScore = $('#fjPScore'), fjAIScore = $('#fjAIScore'), fjPWager = $('#fjPWager'), fjAIWager = $('#fjAIWager');
-const finalCard = $('#finalCard'), finalCat = $('#finalCat'), finalText = $('#finalText');
-const finalChoices = $('#finalChoices'), finalFeedback = $('#finalFeedback'), closeFinal = $('#closeFinal');
-const gameEndModal = $('#gameEndModal'), endGameTitle = $('#endGameTitle');
-const endPlayerScore = $('#endPlayerScore'), endAIScore = $('#endAIScore'), endGameMessage = $('#endGameMessage');
-const finalRestartBtn = $('#finalRestartBtn');
-const roundIndicator = $('#roundIndicator');
-const roundTransition = $('#roundTransition'), transitionTitle = $('#transitionTitle'), transitionSubtitle = $('#transitionSubtitle');
-
-/* Audio */
-let AC = null;
-function ensureAudio() { if (!AC) { AC = new (window.AudioContext || window.webkitAudioContext)(); } if (AC.state === 'suspended') { AC.resume(); } }
-function play(freq = 880, ms = 180, type = 'sine', gain = 0.06) {
-  if (!soundOn) return;
-  ensureAudio();
-  const o = AC.createOscillator(), g = AC.createGain();
-  o.type = type; o.frequency.value = freq;
-  g.gain.value = gain; g.gain.setValueAtTime(gain, AC.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime + ms / 1000);
-  o.connect(g); g.connect(AC.destination); o.start(); o.stop(AC.currentTime + ms / 1000);
-}
-function chordOK() { play(987, 140, 'sine', 0.08); setTimeout(() => play(1479, 160, 'sine', 0.07), 110); }
-function buzzer() {
-  if (!soundOn) return; ensureAudio();
-  const o = AC.createOscillator(), g = AC.createGain(); o.type = 'square';
-  o.frequency.setValueAtTime(120, AC.currentTime); o.frequency.exponentialRampToValueAtTime(70, AC.currentTime + 0.35);
-  g.gain.value = 0.08; g.gain.setValueAtTime(0.08, AC.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime + 0.4);
-  o.connect(g); g.connect(AC.destination); o.start(); o.stop(AC.currentTime + 0.42);
-}
-function selectBlip() { play(660, 90, 'triangle', 0.06); }
-function tick() { play(660, 45, 'sine', 0.03); }
-function buzzSound() { play(800, 200, 'square', 0.1); }
-
-function celebrate() {
-  const colors = ["#22c55e", "#3b82f6", "#eab308", "#a855f7", "#f43f5e"];
-  for (let i = 0; i < 26; i++) {
-    const p = document.createElement('i');
-    p.style.left = Math.random() * 100 + '%';
-    p.style.top = '-10px';
-    p.style.background = colors[Math.floor(Math.random() * colors.length)];
-    p.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
-    p.style.animationDelay = (Math.random() * 0.2) + 's';
-    confetti.appendChild(p);
-    setTimeout(() => p.remove(), 1700);
-  }
-}
-
-function updateTurnIndicator() {
-  playerBox.classList.toggle('active', currentTurn === 'player');
-  aiBox.classList.toggle('active', currentTurn === 'ai');
-  
-  if (gameState === GameState.TILE_SELECTION) {
-    playerTurn.textContent = currentTurn === 'player' ? '👉 Your Turn to Select' : '';
-    aiTurn.textContent = currentTurn === 'ai' ? '👉 AI is Selecting...' : '';
-  } else {
-    playerTurn.textContent = '';
-    aiTurn.textContent = '';
-  }
-}
 
 /* Validate the structure up front so bad data fails fast */
 function validateBank() {

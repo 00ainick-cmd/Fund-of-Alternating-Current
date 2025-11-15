@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> CAET Flash Cards – AC Fundamentals </title>
+  <style>
+    :root{
+      --bg: #f8fafc; /* slate-50 */
+      --card: #ffffff;
+      --text: #0f172a; /* slate-900 */
+      --muted: #64748b; /* slate-500 */
+      --border: #e2e8f0; /* slate-200 */
+      --ring: #cbd5e1; /* slate-300 */
+      --green: #16a34a; /* green-600 */
+      --green-50: #ecfdf5;
+      --yellow: #f59e0b; /* yellow-500 */
+      --yellow-50: #fffbeb;
+      --red: #dc2626; /* red-600 */
+      --red-50: #fef2f2;
+      --shadow: 0 10px 20px rgba(2, 6, 23, 0.06), 0 2px 6px rgba(2, 6, 23, 0.06);
+    }
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(to bottom,var(--bg),#fff);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{margin:0;font-size:28px;letter-spacing:-0.01em;display:flex;align-items:center;gap:10px}
+    .sparkle{width:24px;height:24px}
+    .deck-switch{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:6px;background:#fff;box-shadow:var(--shadow)}
+    .chip{border:1px solid transparent;background:transparent;color:var(--text);padding:6px 12px;border-radius:999px;cursor:pointer}
+    .chip.active{background:#111827;color:#fff}
+
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+    .card h2{margin:0;padding:16px 20px;border-bottom:1px solid var(--border);font-size:18px}
+    .card .content{padding:18px 20px}
+
+    .flip{position:relative;height:300px;border-radius:16px;border:1px solid var(--border);background:#fff;cursor:pointer;user-select:none;perspective:1000px}
+    .flip-inner{position:relative;height:100%;transform-style:preserve-3d;transition:transform .4s}
+    .flip .face{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:16px;text-align:center}
+    .flip .back{transform:rotateY(180deg)}
+    .flip.is-flipped .flip-inner{transform:rotateY(180deg)}
+
+    .meta{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+    .term{font-size:28px;font-weight:700;margin-top:6px}
+    .unit{font-size:14px;color:var(--muted);margin-top:4px}
+    .badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 8px;font-size:12px;margin:4px 4px 0 0}
+
+    .def{max-width:70ch;font-size:18px;line-height:1.4;max-height:180px;overflow:auto;padding-right:8px}
+
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+    .btn{appearance:none;border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer}
+    .btn:focus{outline:2px solid var(--ring);outline-offset:2px}
+    .btn-outline{background:#fff}
+    .btn-primary{background:#111827;color:#fff;border-color:#111827}
+    .btn-ghost{background:transparent}
+
+    .btn-green{color:var(--green);border-color:#bbf7d0;background:var(--green-50)}
+    .btn-green.active{background:var(--green);color:#fff;border-color:var(--green)}
+    .btn-yellow{color:var(--yellow);border-color:#fef3c7;background:var(--yellow-50)}
+    .btn-yellow.active{background:var(--yellow);color:#fff;border-color:var(--yellow)}
+    .btn-red{color:var(--red);border-color:#fecaca;background:var(--red-50)}
+    .btn-red.active{background:var(--red);color:#fff;border-color:var(--red)}
+
+    .list{max-height:330px;overflow:auto;padding-right:6px}
+    .list-item{border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:10px}
+    .list-item .title{font-weight:600}
+    .list-item .line{color:var(--muted);font-size:12px;margin-top:6px}
+
+    .bottom{margin-top:20px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{border:1px solid var(--border);padding:6px 10px;border-radius:999px;background:#fff;cursor:pointer}
+    .tag.active{background:#111827;color:#fff;border-color:#111827}
+
+    .search{display:flex;align-items:center;gap:10px;margin-top:12px}
+    .search input{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px}
+
+    .empty{padding:28px;text-align:center;color:var(--muted)}
+
+    @media (max-width:720px){
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      .row{flex-direction:column;align-items:stretch}
+      .def{max-height:150px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <svg class="sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2l1.9 4.6L18 8l-4.1 1.4L12 14l-1.9-4.6L6 8l4.1-1.4L12 2z"/>
+        </svg>
+        AC Fundamentals Interactive Glossary
+      </h1>
+      <div class="deck-switch" id="deckSwitch">
+        <button class="chip active" data-deck="all">All</button>
+        <button class="chip" data-deck="easy">Easy <span class="count" data-count="easy"></span></button>
+        <button class="chip" data-deck="medium">Medium <span class="count" data-count="medium"></span></button>
+        <button class="chip" data-deck="difficult">Difficult <span class="count" data-count="difficult"></span></button>
+      </div>
+      <button class="btn btn-primary" id="finishSession" style="margin-top:8px;width:100%;max-width:200px;">Finish Session</button>
+    </header>
+
+    <section class="card">
+      <h2>Study <span class="meta" style="margin-left:8px">[Space: Flip • ←/→: Prev/Next]</span></h2>
+      <div class="content">
+        <div class="flip" id="flip">
+          <div class="flip-inner" id="flipInner">
+            <div class="face front" id="front"></div>
+            <div class="face back" id="back"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row" id="ratingRow">
+            <button class="btn btn-green" id="rateEasy">Easy</button>
+            <button class="btn btn-yellow" id="rateMedium">Medium</button>
+            <button class="btn btn-red" id="rateDifficult">Difficult</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-outline" id="prev">Prev</button>
+            <button class="btn btn-primary" id="next">Next ▶</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:16px">
+      <h2>List View</h2>
+      <div class="content">
+        <div class="list" id="list"></div>
+      </div>
+    </section>
+
+    <section class="card bottom" style="margin-bottom:8px">
+      <h2>Filter</h2>
+      <div class="content">
+        <div class="tags" id="tags"></div>
+        <div class="search">
+          <input id="search" type="search" placeholder="Search term, definition, unit, or tag" />
+        </div>
+      </div>
+    </section>
+  </div>
+
+<script>
+(function(){
+  // ---------- Data (embedded directly – no document.write) ----------
+  const FIXED_CARDS = [
+
+  {
+    "term": "Alternating Current (AC)",
+    "definition": "Electrical current that periodically reverses direction, unlike direct current (DC) which flows in only one direction. AC is the primary form of electrical power in aircraft power distribution systems. Aircraft typically use 400 Hz AC power instead of the 60 Hz used in homes.",
+    "analogy": "Water flowing back and forth in a pipe, constantly reversing direction at a regular rate, like a piston moving back and forth.",
+    "unit": "AC 101",
+    "tags": "fundamentals|basics|AC_theory"
+  },
+  {
+    "term": "Frequency (f)",
+    "definition": "The number of complete cycles an AC waveform completes per second, measured in Hertz (Hz). Aircraft AC systems typically operate at 400 Hz, which is higher than the 60 Hz used in residential power. Higher frequency allows lighter transformers and generators.",
+    "analogy": "How many times per second a swing completes a full back-and-forth motion.",
+    "unit": "Hertz (Hz)",
+    "tags": "fundamentals|measurement|AC_theory"
+  },
+  {
+    "term": "Period (T)",
+    "definition": "The time required for one complete cycle of an AC waveform. Period is the inverse of frequency: T = 1/f. For 400 Hz aircraft power, the period is 2.5 milliseconds (0.0025 seconds).",
+    "analogy": "The time it takes for a pendulum to swing from one side, to the other, and back again to the starting position.",
+    "unit": "Seconds (s)",
+    "tags": "fundamentals|measurement|AC_theory"
+  },
+  {
+    "term": "Sine Wave",
+    "definition": "The most fundamental AC waveform, representing smooth, continuous oscillation. Aircraft generators produce sine wave AC power. The sine wave is characterized by its peak amplitude, frequency, and phase. It's the natural waveform produced by rotating machinery.",
+    "analogy": "The smooth, repeating pattern traced by a point on a rotating wheel, like watching the height of a seat on a Ferris wheel over time.",
+    "unit": "AC 101 (Waveform)",
+    "tags": "waveforms|fundamentals|AC_theory"
+  },
+  {
+    "term": "Peak Voltage (Vp)",
+    "definition": "The maximum voltage reached in either the positive or negative direction during one AC cycle. For a sine wave, this is the highest point above or below zero. Peak voltage is important for insulation ratings and component voltage stress.",
+    "analogy": "The highest point a ball reaches when thrown straight up before falling back down.",
+    "unit": "Volts (V)",
+    "tags": "measurement|voltage|AC_theory"
+  },
+  {
+    "term": "Peak-to-Peak Voltage (Vp-p)",
+    "definition": "The total voltage difference between the maximum positive peak and maximum negative peak of an AC waveform. For a sine wave, Vp-p = 2 × Vp. This measurement is commonly seen on oscilloscopes and represents the full voltage swing.",
+    "analogy": "The total distance from the top of a hill to the bottom of the valley.",
+    "unit": "Volts (V)",
+    "tags": "measurement|voltage|AC_theory"
+  },
+  {
+    "term": "RMS Voltage (Vrms)",
+    "definition": "Root Mean Square voltage - the effective or equivalent DC voltage that would deliver the same power to a resistive load. For a sine wave, Vrms = 0.707 × Vp. Aircraft AC systems are rated in RMS values (e.g., 115V AC means 115V RMS). This is the value shown on most AC voltmeters.",
+    "analogy": "The equivalent 'average strength' of an AC voltage compared to steady DC voltage that does the same amount of work.",
+    "unit": "Volts (V)",
+    "tags": "measurement|voltage|AC_theory|calculations"
+  },
+  {
+    "term": "Oscilloscope",
+    "definition": "A test instrument that displays electrical signals as waveforms on a screen, showing voltage changes over time. Essential for troubleshooting AC circuits in avionics. Modern digital oscilloscopes can capture, store, and analyze complex waveforms and measure frequency, amplitude, rise time, and distortion.",
+    "analogy": "An electrical camera that takes a picture of voltage over time, allowing you to see the shape and behavior of electrical signals.",
+    "unit": "AC 201 (Tool)",
+    "tags": "test_equipment|oscilloscope|measurement"
+  },
+  {
+    "term": "Oscilloscope Time Base",
+    "definition": "The horizontal axis control on an oscilloscope that determines how fast the waveform sweeps across the screen. Measured in time per division (e.g., 1 ms/div, 10 μs/div). Adjusting this allows you to see more or fewer cycles of the waveform. Proper setting is essential for accurate frequency and timing measurements.",
+    "analogy": "The speed control on a video player - adjusting it lets you watch events in slow motion or fast forward.",
+    "unit": "AC 201 (Control)",
+    "tags": "oscilloscope|test_equipment|procedure"
+  },
+  {
+    "term": "Oscilloscope Vertical Scale",
+    "definition": "The vertical axis control that determines the voltage scale per division (e.g., 5V/div, 100mV/div). This setting allows you to adjust the size of the waveform display for optimal viewing and accurate voltage measurements. Each division is one grid square on the screen.",
+    "analogy": "The zoom function on a camera - adjusting it makes the image larger or smaller to fit properly in the frame.",
+    "unit": "AC 201 (Control)",
+    "tags": "oscilloscope|test_equipment|procedure"
+  },
+  {
+    "term": "Oscilloscope Trigger",
+    "definition": "The control that stabilizes a repeating waveform on the oscilloscope screen by starting each sweep at the same point in the waveform cycle. Proper triggering is essential for viewing a stable, non-moving waveform. Can be set to trigger on rising edge, falling edge, or specific voltage levels.",
+    "analogy": "Like taking photos of a spinning wheel always at the same position - the wheel appears stationary even though it's rotating.",
+    "unit": "AC 201 (Control)",
+    "tags": "oscilloscope|test_equipment|procedure"
+  },
+  {
+    "term": "Oscilloscope Probe",
+    "definition": "The cable and connector used to connect the oscilloscope to the circuit being tested. Probes typically have 10:1 attenuation (10X probe) to reduce loading effects on the circuit and allow measurement of higher voltages. The ground clip must be connected to circuit ground for accurate measurements.",
+    "analogy": "A specialized extension cord that carefully transfers the electrical signal to the meter without disturbing what's being measured.",
+    "unit": "AC 201 (Tool)",
+    "tags": "oscilloscope|test_equipment|safety"
+  },
+  {
+    "term": "Function Generator",
+    "definition": "A test instrument that produces various AC waveforms (sine, square, triangle, etc.) with adjustable frequency and amplitude. Used for testing and troubleshooting AC circuits by injecting known signals. Essential for checking amplifiers, filters, and other AC signal processing circuits in avionics.",
+    "analogy": "An electronic synthesizer that creates precise, controllable electrical waves instead of sound waves.",
+    "unit": "AC 201 (Tool)",
+    "tags": "test_equipment|signal_generator|fundamentals"
+  },
+  {
+    "term": "Frequency Generator Controls",
+    "definition": "Main controls include frequency adjustment (Hz, kHz, MHz), amplitude/voltage control (typically in Vp-p), waveform selection (sine, square, triangle), and DC offset. Understanding these controls is essential for generating proper test signals for avionics troubleshooting.",
+    "analogy": "The control panel of a radio transmitter where you set what kind of signal you want to broadcast and how strong it should be.",
+    "unit": "AC 201 (Control)",
+    "tags": "signal_generator|test_equipment|procedure"
+  },
+  {
+    "term": "Inductor (L)",
+    "definition": "A passive component that stores energy in a magnetic field when current flows through it. Consists of a coil of wire, often wound around a core material. Inductors oppose changes in current and are used in filters, transformers, and energy storage applications in aircraft electrical systems.",
+    "analogy": "An electrical inertia or flywheel that resists sudden changes in current flow, storing energy in a magnetic field instead of rotating mass.",
+    "unit": "Henry (H)",
+    "tags": "components|inductors|fundamentals"
+  },
+  {
+    "term": "Inductance",
+    "definition": "The property of an inductor that quantifies its ability to store energy in a magnetic field and oppose changes in current. Measured in Henrys (H). Inductance depends on number of turns, coil area, core material, and coil length. Larger inductance means greater opposition to current changes.",
+    "analogy": "The 'electrical mass' of a component - just as a heavy object resists changes in motion, high inductance resists changes in current.",
+    "unit": "Henry (H)",
+    "tags": "inductors|fundamentals|measurement"
+  },
+  {
+    "term": "Inductive Reactance (XL)",
+    "definition": "The opposition to AC current flow caused by an inductor, measured in Ohms (Ω). Calculated as XL = 2πfL, where f is frequency and L is inductance. Reactance increases with frequency - inductors block high frequencies and pass low frequencies. This makes them useful in filters.",
+    "analogy": "Frequency-dependent resistance - like a door that becomes harder to push the faster you try to push it.",
+    "unit": "Ohms (Ω)",
+    "tags": "inductors|reactance|AC_theory|calculations"
+  },
+  {
+    "term": "Inductor Behavior in AC Circuits",
+    "definition": "In AC circuits, inductors create inductive reactance that increases with frequency. Current lags voltage by 90° in a pure inductor. This phase shift is critical in power systems. Inductors act as short circuits at DC (0 Hz) and open circuits at very high frequencies.",
+    "analogy": "A component that's sluggish to respond - when voltage changes, the current takes time to catch up, always running behind like someone who's always late.",
+    "unit": "AC 102 (Behavior)",
+    "tags": "inductors|AC_theory|phase_relationships"
+  },
+  {
+    "term": "Inductor Series Formula",
+    "definition": "When inductors are connected in series (assuming no mutual coupling), total inductance is the sum of individual inductances: L_total = L1 + L2 + L3 + ... This is similar to series resistance. Used when designing chokes and filters.",
+    "analogy": "Adding inductors in series is like adding springs end-to-end - the total resistance to change increases.",
+    "unit": "AC 102 (Formula)",
+    "tags": "inductors|calculations|circuits"
+  },
+  {
+    "term": "Inductor Parallel Formula",
+    "definition": "When inductors are connected in parallel (assuming no mutual coupling), total inductance follows the reciprocal rule: 1/L_total = 1/L1 + 1/L2 + ... The total inductance is less than the smallest individual inductor. For two equal inductors, L_total = L/2.",
+    "analogy": "Like parallel resistors - multiple paths reduce the total opposition to change.",
+    "unit": "AC 102 (Formula)",
+    "tags": "inductors|calculations|circuits"
+  },
+  {
+    "term": "Transformer",
+    "definition": "A device that transfers electrical energy between two or more circuits through electromagnetic induction using AC current. Consists of primary and secondary windings around a common magnetic core. Can step voltage up or down while maintaining power (minus losses). Essential in aircraft power systems for voltage conversion.",
+    "analogy": "An electrical gear system that can trade voltage for current (or vice versa) while keeping the total power roughly the same, like trading speed for torque.",
+    "unit": "AC 301 (Device)",
+    "tags": "transformers|fundamentals|components"
+  },
+  {
+    "term": "Transformer Turns Ratio",
+    "definition": "The ratio of the number of turns in the primary winding to the number in the secondary winding (Np:Ns). This ratio determines the voltage and current transformation: Vs/Vp = Ns/Np and Is/Ip = Np/Ns. A 10:1 turns ratio steps down voltage by 10 and steps up current by 10 (ideally).",
+    "analogy": "Like a bicycle gear ratio - a 2:1 ratio means the output spins twice as fast but with half the force.",
+    "unit": "AC 301 (Ratio)",
+    "tags": "transformers|calculations|fundamentals"
+  },
+  {
+    "term": "Step-Up Transformer",
+    "definition": "A transformer where the secondary voltage is higher than the primary voltage (Ns > Np). The turns ratio is greater than 1:1. Used in aircraft when higher voltage is needed for certain systems. Current in secondary is proportionally lower than primary (power is conserved).",
+    "analogy": "A lever that trades high current for high voltage, like using a long lever to lift a heavy weight with less force but more distance.",
+    "unit": "AC 301 (Type)",
+    "tags": "transformers|components|applications"
+  },
+  {
+    "term": "Step-Down Transformer",
+    "definition": "A transformer where the secondary voltage is lower than the primary voltage (Ns < Np). The turns ratio is less than 1:1. Common in aircraft to reduce 115V AC to lower voltages for avionics equipment. Secondary current is proportionally higher than primary.",
+    "analogy": "A lever that trades high voltage for high current, like using a short lever that requires more force but moves less distance.",
+    "unit": "AC 301 (Type)",
+    "tags": "transformers|components|applications"
+  },
+  {
+    "term": "Isolation Transformer",
+    "definition": "A transformer with a 1:1 turns ratio that provides electrical isolation between primary and secondary circuits while maintaining the same voltage. Used for safety and to eliminate ground loops. The secondary circuit has no direct electrical connection to the primary, only magnetic coupling.",
+    "analogy": "A bridge that lets energy cross but keeps the two sides electrically separate, preventing problems from one side affecting the other.",
+    "unit": "AC 301 (Type)",
+    "tags": "transformers|safety|applications"
+  },
+  {
+    "term": "Transformer Core",
+    "definition": "The magnetic material (usually laminated iron or ferrite) around which transformer windings are wound. The core provides a path for magnetic flux and increases transformer efficiency. Laminations reduce eddy current losses. Core material and design affect transformer performance, size, and frequency range.",
+    "analogy": "The highway for magnetic field lines - a well-designed core is like a superhighway that efficiently channels magnetic energy from primary to secondary.",
+    "unit": "AC 301 (Component)",
+    "tags": "transformers|components|fundamentals"
+  },
+  {
+    "term": "Transformer Losses",
+    "definition": "Energy losses in transformers include: copper losses (I²R heating in windings), core losses (hysteresis and eddy currents in core), and flux leakage. These reduce efficiency. Aircraft transformers are designed to minimize losses while keeping weight low. Efficiency typically 95-98%.",
+    "analogy": "The inevitable waste heat and energy loss, like friction in a mechanical gear box - you never get 100% of the power transferred.",
+    "unit": "AC 301 (Concept)",
+    "tags": "transformers|efficiency|troubleshooting"
+  },
+  {
+    "term": "Autotransformer",
+    "definition": "A transformer with a single winding that acts as both primary and secondary, with a tap at an intermediate point. More compact and efficient than isolation transformers but provides no electrical isolation. Used where isolation isn't required and weight/space savings are important.",
+    "analogy": "A single rope with a pulley at a midpoint rather than two separate ropes - more efficient but the two sides are connected.",
+    "unit": "AC 301 (Type)",
+    "tags": "transformers|components|applications"
+  },
+  {
+    "term": "Capacitor (C)",
+    "definition": "A passive component that stores energy in an electric field between two conductive plates separated by an insulator (dielectric). Capacitors pass AC but block DC, store charge, filter signals, and provide power factor correction in aircraft systems. Widely used in avionics for filtering and energy storage.",
+    "analogy": "An electrical spring or water tank that stores electrical energy in an electric field, like storing water under pressure.",
+    "unit": "Farad (F)",
+    "tags": "components|capacitors|fundamentals"
+  },
+  {
+    "term": "Capacitance",
+    "definition": "The ability of a capacitor to store electrical charge, measured in Farads (F). Most practical capacitors are measured in microfarads (μF), nanofarads (nF), or picofarads (pF). Capacitance depends on plate area, distance between plates, and dielectric material. Larger capacitance stores more charge at a given voltage.",
+    "analogy": "The size of an electrical storage tank - larger capacitance means more charge storage capacity.",
+    "unit": "Farad (F)",
+    "tags": "capacitors|fundamentals|measurement"
+  },
+  {
+    "term": "Capacitive Reactance (Xc)",
+    "definition": "The opposition to AC current flow caused by a capacitor, measured in Ohms (Ω). Calculated as Xc = 1/(2πfC), where f is frequency and C is capacitance. Reactance decreases as frequency increases - capacitors block low frequencies (including DC) and pass high frequencies. Opposite behavior of inductors.",
+    "analogy": "Frequency-dependent resistance that decreases as frequency increases - like a door that's easier to push the faster you push it.",
+    "unit": "Ohms (Ω)",
+    "tags": "capacitors|reactance|AC_theory|calculations"
+  },
+  {
+    "term": "Capacitor Behavior in AC Circuits",
+    "definition": "In AC circuits, capacitors create capacitive reactance that decreases with frequency. Voltage lags current by 90° in a pure capacitor (current leads). This is opposite to inductors. Capacitors act as open circuits at DC and short circuits at very high frequencies. Used extensively in filters and coupling applications.",
+    "analogy": "A component that's eager to respond - when voltage starts to change, current jumps ahead immediately, like an eager student who raises their hand before the question is finished.",
+    "unit": "AC 102 (Behavior)",
+    "tags": "capacitors|AC_theory|phase_relationships"
+  },
+  {
+    "term": "Capacitor Series Formula",
+    "definition": "When capacitors are connected in series, total capacitance follows the reciprocal rule: 1/C_total = 1/C1 + 1/C2 + ... The total capacitance is less than the smallest individual capacitor. For two equal capacitors, C_total = C/2. Opposite of series inductance.",
+    "analogy": "Series capacitors reduce total capacitance like adding barriers reduces the total water flow.",
+    "unit": "AC 102 (Formula)",
+    "tags": "capacitors|calculations|circuits"
+  },
+  {
+    "term": "Capacitor Parallel Formula",
+    "definition": "When capacitors are connected in parallel, total capacitance is the sum of individual capacitances: C_total = C1 + C2 + C3 + ... This is similar to parallel inductance behavior and opposite of series capacitance. Parallel connection increases total charge storage capacity.",
+    "analogy": "Parallel capacitors add like adding water tanks side by side - more total storage capacity.",
+    "unit": "AC 102 (Formula)",
+    "tags": "capacitors|calculations|circuits"
+  },
+  {
+    "term": "Electrolytic Capacitor",
+    "definition": "A polarized capacitor with high capacitance values (typically μF to mF range) used for filtering and energy storage. MUST be connected with correct polarity or it will fail catastrophically. Aluminum electrolytic caps are common in aircraft power supplies. Not suitable for AC voltage across terminals.",
+    "analogy": "A high-capacity but directional storage tank that will fail if you try to force flow in the wrong direction.",
+    "unit": "AC 303 (Type)",
+    "tags": "capacitors|components|safety"
+  },
+  {
+    "term": "Ceramic Capacitor",
+    "definition": "A non-polarized capacitor using ceramic dielectric material, available in small capacitance values (pF to μF). Reliable, inexpensive, and widely used in avionics for bypass, coupling, and filtering. Can handle AC voltage and higher frequencies. Temperature-stable types (C0G/NP0) maintain capacitance over temperature range.",
+    "analogy": "A general-purpose, non-directional storage component that works reliably in most situations.",
+    "unit": "AC 303 (Type)",
+    "tags": "capacitors|components|applications"
+  },
+  {
+    "term": "Film Capacitor",
+    "definition": "A non-polarized capacitor using plastic film dielectric (polyester, polypropylene, etc.). Excellent stability, low losses, and good high-frequency performance. Common in aircraft AC power circuits and filters. More expensive than ceramic but better performance for precision and power applications.",
+    "analogy": "A high-quality storage component with excellent consistency and reliability, like a precision-engineered component.",
+    "unit": "AC 303 (Type)",
+    "tags": "capacitors|components|applications"
+  },
+  {
+    "term": "Capacitor Voltage Rating",
+    "definition": "The maximum voltage a capacitor can safely withstand across its terminals. Exceeding this voltage can cause dielectric breakdown and permanent damage. For AC applications, voltage rating must exceed peak voltage (Vp), not just RMS. Derating (using higher rated caps) improves reliability in aircraft applications.",
+    "analogy": "The maximum pressure a tank can handle before it ruptures - exceeding it leads to catastrophic failure.",
+    "unit": "Volts (V)",
+    "tags": "capacitors|safety|specifications"
+  },
+  {
+    "term": "Capacitor Charging Current",
+    "definition": "When a capacitor is first connected to a voltage source, it draws a large initial current that decreases exponentially as the capacitor charges. The charging current is limited only by circuit resistance. In AC circuits, this charging and discharging happens continuously. Important for understanding inrush currents.",
+    "analogy": "Like filling a water tank - water flows in fast at first when the tank is empty, then slows down as the tank fills up.",
+    "unit": "AC 102 (Concept)",
+    "tags": "capacitors|AC_theory|troubleshooting"
+  },
+  {
+    "term": "Impedance (Z)",
+    "definition": "The total opposition to AC current flow in a circuit, combining resistance (R), inductive reactance (XL), and capacitive reactance (Xc). Measured in Ohms (Ω). Z = √(R² + (XL - Xc)²) for series RLC circuits. Unlike DC resistance, impedance depends on frequency. Essential for AC circuit analysis.",
+    "analogy": "The total resistance to AC flow, like the combined effect of friction, inertia, and springiness in a mechanical system.",
+    "unit": "Ohms (Ω)",
+    "tags": "AC_theory|impedance|calculations"
+  },
+  {
+    "term": "Phase Angle",
+    "definition": "The time difference between voltage and current waveforms in an AC circuit, measured in degrees (0° to 360°) or radians. In purely resistive circuits, phase angle is 0° (in phase). Inductors cause current to lag voltage (+θ). Capacitors cause current to lead voltage (-θ). Important for power calculations.",
+    "analogy": "The timing difference between two runners in a race - one is ahead (leading) and one is behind (lagging).",
+    "unit": "Degrees (°)",
+    "tags": "AC_theory|phase_relationships|fundamentals"
+  },
+  {
+    "term": "Resonance",
+    "definition": "The condition in an AC circuit containing both inductors and capacitors where inductive reactance equals capacitive reactance (XL = Xc). At resonance frequency, they cancel out and impedance is minimum (series) or maximum (parallel). Used in tuned circuits and filters. Resonant frequency: f = 1/(2π√LC).",
+    "analogy": "Like pushing a child on a swing at just the right rhythm - when timing matches natural frequency, you get maximum effect with minimum effort.",
+    "unit": "AC 102 (Concept)",
+    "tags": "AC_theory|resonance|filters"
+  },
+  {
+    "term": "Power Factor",
+    "definition": "The ratio of real power (doing useful work) to apparent power in an AC circuit, ranging from 0 to 1. PF = cos(θ), where θ is phase angle. Purely resistive load has PF = 1. Reactive components (L and C) reduce power factor. Important in aircraft power systems for efficiency. Low PF means wasted current capacity.",
+    "analogy": "The efficiency of power delivery - how much of the electrical effort actually does useful work versus just sloshing back and forth.",
+    "unit": "Unitless (0-1)",
+    "tags": "AC_theory|power|efficiency"
+  },
+  {
+    "term": "AC Generator (Alternator)",
+    "definition": "A rotating machine that converts mechanical energy to AC electrical energy using electromagnetic induction. Aircraft use three-phase alternators at 400 Hz to generate AC power. The rotating part (rotor) contains the field winding, while the stationary part (stator) produces the AC output. More efficient and lighter than DC generators.",
+    "analogy": "A mechanical-to-electrical energy converter, like a bicycle dynamo but much larger and more sophisticated.",
+    "unit": "AC 301 (Device)",
+    "tags": "generators|fundamentals|aircraft_systems"
+  },
+  {
+    "term": "Three-Phase AC",
+    "definition": "An AC power system with three separate voltage waveforms, each offset by 120° in phase. Used in aircraft for efficient power generation and distribution. Three-phase provides constant power delivery and allows smaller, lighter motors and generators. More efficient than single-phase for power transmission and motor operation.",
+    "analogy": "Three runners on a track, evenly spaced, continuously providing power - when one is at low point, others are delivering, ensuring smooth power flow.",
+    "unit": "AC 301 (System)",
+    "tags": "aircraft_systems|power_systems|fundamentals"
+  },
+  {
+    "term": "400 Hz Aircraft Power",
+    "definition": "The standard AC frequency used in aircraft electrical systems (versus 60 Hz in homes). Higher frequency allows transformers, motors, and generators to be smaller and lighter - critical for aircraft. Requires special ground power units - standard 60 Hz power cannot be used directly on aircraft systems.",
+    "analogy": "A high-speed power system optimized for weight savings, like using a high-RPM lightweight motor instead of a heavy low-speed motor.",
+    "unit": "AC 301 (Standard)",
+    "tags": "aircraft_systems|fundamentals|standards"
+  },
+  {
+    "term": "Rectifier",
+    "definition": "A device (typically using diodes) that converts AC to DC by allowing current flow in only one direction. Used in aircraft to convert AC generator output to DC for battery charging and DC bus systems. Half-wave rectifiers use one diode; full-wave use four (bridge). May include filtering capacitors for smooth DC output.",
+    "analogy": "A one-way valve for electricity, allowing flow in one direction only, like a check valve in a water pipe.",
+    "unit": "AC 302 (Device)",
+    "tags": "components|power_conversion|aircraft_systems"
+  },
+  {
+    "term": "Inverter",
+    "definition": "A device that converts DC to AC, opposite of a rectifier. Aircraft may use inverters to produce 115V 400Hz AC from 28V DC battery power for critical instruments during generator failure. Modern inverters use electronic switching to create AC waveforms from DC. Essential backup power source for critical avionics.",
+    "analogy": "A DC-to-AC converter, like a device that creates waves in still water using a paddle moving back and forth.",
+    "unit": "AC 302 (Device)",
+    "tags": "components|power_conversion|aircraft_systems"
+  },
+  {
+    "term": "LC Filter",
+    "definition": "A circuit using inductors and capacitors to pass certain frequencies while blocking others. Low-pass filters block high frequencies (using series L and parallel C). High-pass filters block low frequencies (using series C and parallel L). Used extensively in avionics for EMI suppression and signal processing.",
+    "analogy": "An electrical sieve that lets certain frequency signals through while blocking others, like a filter that separates pebbles from sand.",
+    "unit": "AC 302 (Circuit)",
+    "tags": "filters|circuits|applications"
+  },
+  {
+    "term": "Skin Effect",
+    "definition": "The tendency of high-frequency AC current to flow primarily near the surface (skin) of a conductor rather than uniformly throughout. Increases effective resistance at high frequencies. More pronounced with larger conductors. Aircraft wiring for high-frequency signals may use stranded wire or special conductors to minimize skin effect.",
+    "analogy": "Like water in a spinning bucket being pushed to the outside - high-frequency current congregates at the conductor surface.",
+    "unit": "AC 102 (Phenomenon)",
+    "tags": "AC_theory|conductors|high_frequency"
+  }
+  ];
+
+  function uidFrom(str){
+    let h=0; for(let i=0;i<str.length;i++){ h=(h<<5)-h+str.charCodeAt(i); h|=0 }
+    return Math.abs(h).toString(36);
+  }
+  function normalizeTags(t){
+    if(Array.isArray(t)) return t.map(s=>String(s).trim()).filter(Boolean);
+    if(typeof t === 'string') return t.split(/[|,]/).map(s=>s.trim()).filter(Boolean);
+    return [];
+  }
+  const DATA = FIXED_CARDS.map(c=>({ ...c, id: uidFrom(c.term+'::'+c.definition), tags: normalizeTags(c.tags) }));
+
+  // ---------- Storage ----------
+  const LS_KEY = 'glossary.mastery';
+  function loadMap(){ try{ return JSON.parse(localStorage.getItem(LS_KEY))||{} }catch{ return {} } }
+  function saveMap(m){ try{ localStorage.setItem(LS_KEY, JSON.stringify(m)) }catch{} }
+
+  // ---------- SM-2 ----------
+  const DAY = 24*60*60*1000;
+  function scheduleNext(state, rating){
+    const q = rating==='difficult'?2: rating==='medium'?4:5;
+    let { reps=0, ivl=0, ease=2.5 } = state||{};
+    const now = Date.now();
+    if(q < 3){ reps=0; ivl=1; }
+    else { if(reps===0) ivl=1; else if(reps===1) ivl=6; else ivl=Math.max(1, Math.round(ivl*ease)); reps+=1; }
+    ease = Math.max(1.3, ease + 0.1 - (5-q)*(0.08 + (5-q)*0.02));
+    const due = now + ivl*DAY;
+    return { ...state, rating, reps, ivl, ease, due, last: now };
+  }
+
+  // ---------- State ----------
+  const state = {
+    mastery: loadMap(),
+    deck: 'all',
+    query: '',
+    tags: new Set(),
+    idx: 0,
+    flipped: false
+  };
+
+  // ---------- Elements ----------
+  const $front = document.getElementById('front');
+  const $back = document.getElementById('back');
+  const $flip = document.getElementById('flip');
+  const $list = document.getElementById('list');
+  const $tags = document.getElementById('tags');
+  const $search = document.getElementById('search');
+  const $prev = document.getElementById('prev');
+  const $next = document.getElementById('next');
+  const $rateEasy = document.getElementById('rateEasy');
+  const $rateMedium = document.getElementById('rateMedium');
+  const $rateDifficult = document.getElementById('rateDifficult');
+  const $chips = Array.from(document.querySelectorAll('.deck-switch .chip'));
+  const $counts = {
+    easy: document.querySelector('[data-count="easy"]'),
+    medium: document.querySelector('[data-count="medium"]'),
+    difficult: document.querySelector('[data-count="difficult"]')
+  };
+
+  // ---------- Derived ----------
+  function filtered(){
+    const q = state.query.trim().toLowerCase();
+    const base = DATA;
+    const byQ = q ? base.filter(d => (d.term||'').toLowerCase().includes(q) || (d.definition||'').toLowerCase().includes(q) || (d.unit||'').toLowerCase().includes(q) || (d.tags||[]).some(t=>t.toLowerCase().includes(q))) : base;
+    const byTags = state.tags.size ? byQ.filter(d => (d.tags||[]).some(t=>state.tags.has(t))) : byQ;
+    const byDeck = state.deck==='all' ? byTags : byTags.filter(d => (state.mastery[d.id]?.rating||'medium') === state.deck);
+    return byDeck;
+  }
+
+  function computeTagIndex(){
+    const counts = {};
+    DATA.forEach(it => (it.tags||[]).forEach(t => { if(!t) return; counts[t]=(counts[t]||0)+1; }));
+    return Object.entries(counts).sort((a,b)=> b[1]-a[1] || String(a[0]).localeCompare(String(b[0])));
+  }
+
+  function computeCounts(){
+    const easy = DATA.filter(d => (state.mastery[d.id]?.rating||'medium')==='easy').length;
+    const med  = DATA.filter(d => (state.mastery[d.id]?.rating||'medium')==='medium').length;
+    const dif  = DATA.filter(d => (state.mastery[d.id]?.rating||'medium')==='difficult').length;
+    $counts.easy.textContent = `(${easy})`;
+    $counts.medium.textContent = `(${med})`;
+    $counts.difficult.textContent = `(${dif})`;
+  }
+
+  // ---------- Render ----------
+  function renderCard(){
+    const items = filtered();
+    if(items.length===0){
+      $front.innerHTML = `<div class="empty">No terms match your search or selected tags.</div>`;
+      $back.innerHTML = '';
+      return;
+    }
+    if(state.idx >= items.length) state.idx = 0;
+    const cur = items[state.idx];
+    const rating = (state.mastery[cur.id]?.rating)||'medium';
+    $front.innerHTML = `
+      <div>
+        <div class="meta">Term</div>
+        <div class="term">${escapeHTML(cur.term)}</div>
+        <div class="unit">${escapeHTML(cur.unit||'')}</div>
+        <div style="margin-top:8px">${(cur.tags||[]).map(t=>`<span class="badge">${escapeHTML(t)}</span>`).join('')}</div>
+      </div>`;
+    $back.innerHTML = `
+      <div>
+        <div class="meta">Definition</div>
+        <div class="def">${escapeHTML(cur.definition)}</div>
+      </div>`;
+
+    setActive($rateEasy, rating==='easy');
+    setActive($rateMedium, rating==='medium');
+    setActive($rateDifficult, rating==='difficult');
+  }
+
+  function renderList(){
+    const items = filtered();
+    if(items.length===0){ $list.innerHTML = `<div class="empty">No terms match your search or selected tags.</div>`; return; }
+    $list.innerHTML = items.map(it=>{
+      const r = (state.mastery[it.id]?.rating)||'medium';
+      const color = r==='easy' ? 'background:var(--green);color:#fff' : r==='medium' ? 'background:var(--yellow);color:#fff' : 'background:var(--red);color:#fff';
+      return `<div class="list-item">
+        <div class="title">${escapeHTML(it.term)}</div>
+        <div class="line">${escapeHTML(it.definition)}</div>
+        <div class="line">${escapeHTML(it.unit||'')}${(it.tags||[]).length?' • ':''}${(it.tags||[]).map(escapeHTML).join(', ')}</div>
+        <div class="line"><span class="badge" style="${color}">${r[0].toUpperCase()+r.slice(1)}</span></div>
+      </div>`
+    }).join('');
+  }
+
+  function renderTags(){
+    const idx = computeTagIndex();
+    $tags.innerHTML = idx.slice(0,24).map(([tag,count])=>{
+      const active = state.tags.has(tag);
+      return `<button class="tag ${active?'active':''}" data-tag="${encodeURIComponent(tag)}">${escapeHTML(tag)} <span style="opacity:.7">(${count})</span></button>`;
+    }).join('') + (state.tags.size? ' <button class="tag" id="clearTags">Clear</button>': '');
+  }
+
+  function renderAll(){
+    computeCounts();
+    renderCard();
+    renderList();
+    renderTags();
+  }
+
+  // ---------- Utils ----------
+  function setActive(btn, on){
+    const classes = btn.className.split(' ').filter(Boolean);
+    const has = classes.includes('active');
+    if(on && !has) btn.className += ' active';
+    if(!on && has) btn.className = classes.filter(c=>c!=='active').join(' ');
+  }
+  function escapeHTML(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+  }
+
+  // ---------- Events ----------
+  $flip.addEventListener('click', ()=>{ state.flipped=!state.flipped; $flip.classList.toggle('is-flipped', state.flipped); });
+  $prev.addEventListener('click', ()=>{ const len=filtered().length||1; state.flipped=false; state.idx=(state.idx-1+len)%len; renderCard(); });
+  $next.addEventListener('click', ()=>{ const len=filtered().length||1; state.flipped=false; state.idx=(state.idx+1)%len; renderCard(); });
+
+  $rateEasy.addEventListener('click', ()=>rate('easy'));
+  $rateMedium.addEventListener('click', ()=>rate('medium'));
+  $rateDifficult.addEventListener('click', ()=>rate('difficult'));
+
+  $chips.forEach(ch=> ch.addEventListener('click', ()=>{
+    $chips.forEach(b=>b.classList.remove('active'));
+    ch.classList.add('active');
+    state.deck = ch.dataset.deck;
+    state.idx = 0; state.flipped=false; $flip.classList.remove('is-flipped');
+    renderAll();
+  }));
+
+  $tags.addEventListener('click', (e)=>{
+    const t = e.target.closest('[data-tag]');
+    if(t){
+      const tag = decodeURIComponent(t.getAttribute('data-tag'));
+      if(state.tags.has(tag)) state.tags.delete(tag); else state.tags.add(tag);
+      state.idx=0; state.flipped=false; $flip.classList.remove('is-flipped');
+      renderAll();
+    }
+    if(e.target && e.target.id==='clearTags'){ state.tags.clear(); renderAll(); }
+  });
+
+  $search.addEventListener('input', ()=>{ state.query = $search.value; state.idx=0; renderAll(); });
+
+  window.addEventListener('keydown', (e)=>{
+    const tag = (e.target && e.target.tagName||'').toLowerCase();
+    if(tag==='input' || tag==='textarea') return;
+    if(e.code==='ArrowLeft'){ e.preventDefault(); $prev.click(); }
+    if(e.code==='ArrowRight'){ e.preventDefault(); $next.click(); }
+    if(e.code==='Space'){ e.preventDefault(); $flip.click(); }
+  });
+
+  function rate(level){
+    const items = filtered(); if(items.length===0) return;
+    const cur = items[state.idx];
+    const st = state.mastery[cur.id] || { rating:'medium', seen:0, correct:0, last:0, reps:0, ivl:0, ease:2.5, due:0 };
+    const next = scheduleNext(st, level);
+    state.mastery[cur.id] = next; saveMap(state.mastery);
+    computeCounts();
+    $next.click();
+  }
+
+  // ---------- Init ----------
+  DATA.forEach(it=>{ if(!state.mastery[it.id]) state.mastery[it.id] = { rating:'medium', seen:0, correct:0, last:0, reps:0, ivl:0, ease:2.5, due:0 }; });
+  saveMap(state.mastery);
+  renderAll();
+
+  // ---------- Finish Session & Report to Parent ----------
+  function finishSession() {
+    // Calculate score based on mastery ratings
+    const total = DATA.length;
+    const easy = DATA.filter(d => (state.mastery[d.id]?.rating||'medium')==='easy').length;
+    const medium = DATA.filter(d => (state.mastery[d.id]?.rating||'medium')==='medium').length;
+    const difficult = DATA.filter(d => (state.mastery[d.id]?.rating||'medium')==='difficult').length;
+
+    // Score: easy cards = 100%, medium = 50%, difficult = 0%
+    const score = Math.round((easy + medium * 0.5) / total * 100);
+
+    // Try to send to parent page
+    try {
+      if (window.parent && window.parent.completeModule) {
+        console.log('✅ Sending flashcards score to parent page:', score + '%');
+        window.parent.completeModule('flashcards', score);
+
+        alert(`📚 Study Session Complete!\n\nYour Progress:\n✅ Easy: ${easy} cards\n⚠️ Medium: ${medium} cards\n❌ Difficult: ${difficult} cards\n\n📊 Score: ${score}%\n\nKeep studying to improve!`);
+
+        // Return to home view after 1 second
+        setTimeout(() => {
+          if (window.parent && window.parent.showTab) {
+            window.parent.showTab('home');
+          }
+        }, 1000);
+      } else {
+        console.log('⚠️ Parent page not available - running standalone');
+        alert(`📚 Study Session Complete!\n\nYour Progress:\n✅ Easy: ${easy} cards\n⚠️ Medium: ${medium} cards\n❌ Difficult: ${difficult} cards\n\n📊 Score: ${score}%\n\n(Gamification not available in standalone mode)`);
+      }
+    } catch (e) {
+      console.error('Error communicating with parent page:', e);
+      alert(`📚 Study Session Complete!\n\nScore: ${score}%\nEasy: ${easy}, Medium: ${medium}, Difficult: ${difficult}`);
+    }
+  }
+
+  // Attach finish session button handler
+  const $finishBtn = document.getElementById('finishSession');
+  if ($finishBtn) {
+    $finishBtn.addEventListener('click', finishSession);
+  }
+
+  // ---------- Lightweight tests (no special chars) ----------
+  ;(function runTests(){
+    try{
+      if(!(Array.isArray(DATA) && DATA.length>0)) console.error('Test failed: dataset missing');
+      const total = DATA.length;
+      const counts = ['easy','medium','difficult'].map(k=> DATA.filter(d => (state.mastery[d.id]?.rating||'medium')===k).length).reduce((a,b)=>a+b,0);
+      if(!(counts<=total)) console.error('Test failed: deck counts');
+    }catch(e){ console.error('Self-test error', e); }
+  })();
+})();
+</script>
+</body>
+</html>
