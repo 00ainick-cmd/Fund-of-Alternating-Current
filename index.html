@@ -1302,3 +1302,41 @@
   </script>
 </body>
 </html>
+<script>
+// Minimal Lesson Completion Tracker for Wix
+(function() {
+    // Get lesson number from URL or set manually
+    const LESSON_NUMBER = 1; // Change this for each lesson
+    const MODULE_ID = 'electricity';
+    
+    // Add completion button to your page
+    function completeLesson() {
+        const lmsState = JSON.parse(localStorage.getItem('caet_lms_electricity') || '{}');
+        
+        if (lmsState.lessons && lmsState.lessons[LESSON_NUMBER]) {
+            lmsState.lessons[LESSON_NUMBER].completed = true;
+            lmsState.lessons[LESSON_NUMBER].progress = 100;
+            
+            // Award XP based on lesson
+            const xpRewards = {1: 100, 2: 120, 3: 100, 4: 80};
+            lmsState.totalXP = (lmsState.totalXP || 0) + xpRewards[LESSON_NUMBER];
+            
+            localStorage.setItem('caet_lms_electricity', JSON.stringify(lmsState));
+        }
+        
+        // Redirect to dashboard
+        window.location.href = '/caet-dashboard?completed=' + LESSON_NUMBER;
+    }
+    
+    // Expose function globally for button onclick
+    window.completeLesson = completeLesson;
+})();
+</script>
+const LMS_CONFIG = {
+    moduleId: 'electricity',
+    lessons: {
+        1: { url: '/your-lesson-1-url', title: 'DC Fundamentals', xp: 100 },
+        2: { url: '/your-lesson-2-url', title: 'AC Fundamentals', xp: 120 },
+        // etc...
+    }
+};
