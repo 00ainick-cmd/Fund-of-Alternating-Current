@@ -575,372 +575,372 @@
 const QUESTION_BANK = {
   // ==================== ROUND 1: JEOPARDY ====================
 
-  "DC Concepts": [
+  "AC Fundamentals": [
     {
-      id: "dc-001",
+      id: "ac-001",
       difficulty: 1,
       pointValue: 100,
       timeLimit: 10,
-      question: "This is the unit of measurement for electrical 'pressure' or potential difference.",
-      answers: ["Amperes (Amps)", "Ohms (Ω)", "Volts (V)", "Watts (W)"],
-      correctIndex: 2,
-      explanation: "Voltage (Volts) is the electrical pressure that causes current to flow.",
-      reference: "Fundamentals of DC"
+      question: "What is the fundamental difference between AC and DC?",
+      answers: ["AC has higher voltage", "AC current reverses direction periodically", "DC is more efficient", "AC only works in aircraft"],
+      correctIndex: 1,
+      explanation: "Alternating Current (AC) periodically reverses direction, while Direct Current (DC) flows in only one direction.",
+      reference: "AC vs DC Fundamentals"
     },
     {
-      id: "dc-002",
+      id: "ac-002",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "This is the unit of measurement for the rate of electron flow in a circuit.",
-      answers: ["Amperes (Amps)", "Ohms (Ω)", "Volts (V)", "Watts (W)"],
-      correctIndex: 0,
-      explanation: "Current (Amperes) is the measure of how many electrons flow past a point per second.",
-      reference: "Fundamentals of DC"
+      question: "What is the standard AC frequency used in commercial aircraft?",
+      answers: ["60Hz", "50Hz", "400Hz", "1000Hz"],
+      correctIndex: 2,
+      explanation: "Aircraft use 400Hz AC because higher frequency allows smaller, lighter transformers and motors.",
+      reference: "Aircraft AC Systems"
     },
     {
-      id: "dc-003",
+      id: "ac-003",
       difficulty: 3,
       pointValue: 300,
       timeLimit: 14,
-      question: "A material, like rubber or plastic, that strongly opposes the flow of current is called:",
-      answers: ["A conductor", "A semiconductor", "A resistor", "An insulator"],
-      correctIndex: 3,
-      explanation: "Insulators have very high resistance and are used to prevent current from flowing where it is not wanted.",
-      reference: "Conductors vs. Insulators"
+      question: "What is the formula to convert peak voltage to RMS voltage?",
+      answers: ["V_RMS = V_peak × 1.414", "V_RMS = V_peak × 0.707", "V_RMS = V_peak / 2", "V_RMS = V_peak × 2"],
+      correctIndex: 1,
+      explanation: "RMS (Root Mean Square) voltage equals peak voltage multiplied by 0.707 (or divided by √2).",
+      reference: "AC Waveform Values"
     },
     {
-      id: "dc-004",
+      id: "ac-004",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 15,
-      question: "This is the unit of measurement for the opposition to current flow.",
-      answers: ["Amperes (Amps)", "Ohms (Ω)", "Volts (V)", "Watts (W)"],
-      correctIndex: 1,
-      explanation: "Resistance (Ohms) is the property that opposes the flow of current.",
-      reference: "Fundamentals of DC"
+      question: "An aircraft AC generator produces 115V RMS. What is the peak voltage?",
+      answers: ["81.3V", "115V", "162.6V", "230V"],
+      correctIndex: 2,
+      explanation: "Peak voltage = RMS × 1.414. So 115V × 1.414 = 162.6V peak.",
+      reference: "AC Voltage Calculations"
     },
     {
-      id: "dc-005",
+      id: "ac-005",
       difficulty: 4,
       pointValue: 500,
       timeLimit: 18,
-      question: "In 'Direct Current' (DC), the electrons flow in:",
-      answers: ["Two directions, alternating", "One direction only", "A circular, spinning pattern", "High-frequency pulses"],
+      question: "What is the period of a 400Hz aircraft AC power system?",
+      answers: ["0.4 seconds", "2.5 milliseconds", "400 milliseconds", "25 milliseconds"],
       correctIndex: 1,
-      explanation: "Direct Current (DC) is defined by its unidirectional flow, typically from negative to positive.",
-      reference: "AC vs. DC"
+      explanation: "Period = 1/frequency. T = 1/400 = 0.0025 seconds = 2.5 milliseconds.",
+      reference: "AC Waveform Timing"
     }
   ],
 
-  "Ohm's Law": [
+  "Waveforms & Phase": [
     {
-      id: "ohm-001",
+      id: "wave-001",
       difficulty: 1,
       pointValue: 100,
       timeLimit: 10,
-      question: "What is the correct formula for Ohm's Law?",
-      answers: ["V = I x R", "R = V x I", "I = V x R", "P = V x I"],
-      correctIndex: 0,
-      explanation: "Ohm's Law states Voltage (V) equals Current (I) multiplied by Resistance (R).",
-      reference: "Ohm's Law Formula"
+      question: "At what point in the AC cycle does maximum voltage occur?",
+      answers: ["0 degrees", "45 degrees", "90 degrees", "180 degrees"],
+      correctIndex: 2,
+      explanation: "Maximum positive voltage occurs at 90 degrees, and maximum negative at 270 degrees in a sine wave.",
+      reference: "AC Sine Wave"
     },
     {
-      id: "ohm-002",
+      id: "wave-002",
       difficulty: 2,
       pointValue: 200,
-      timeLimit: 15,
-      question: "A 10-ohm resistor has 2 amps of current flowing through it. What is the voltage drop across it?",
-      answers: ["5 Volts", "12 Volts", "0.2 Volts", "20 Volts"],
-      correctIndex: 3,
-      explanation: "Using V = I x R: 2 Amps * 10 Ohms = 20 Volts.",
-      reference: "Ohm's Law Calculation"
+      timeLimit: 12,
+      question: "What does it mean when two waveforms are 'in phase'?",
+      answers: ["They have same amplitude", "They reach peaks at the same time", "They have same frequency", "They are both AC"],
+      correctIndex: 1,
+      explanation: "Waveforms in phase reach their peak values at the same instant in time.",
+      reference: "Phase Relationships"
     },
     {
-      id: "ohm-003",
+      id: "wave-003",
       difficulty: 3,
       pointValue: 300,
-      timeLimit: 15,
-      question: "A 28-volt circuit has a resistance of 7 ohms. How much current is flowing?",
-      answers: ["4 Amps", "196 Amps", "21 Amps", "0.25 Amps"],
-      correctIndex: 0,
-      explanation: "Using I = V / R: 28 Volts / 7 Ohms = 4 Amps.",
-      reference: "Ohm's Law Calculation"
+      timeLimit: 14,
+      question: "In a purely inductive circuit, does current lead or lag voltage?",
+      answers: ["Current leads by 45°", "Current lags by 90°", "They are in phase", "Current leads by 90°"],
+      correctIndex: 1,
+      explanation: "In a purely inductive circuit, current lags voltage by 90 degrees. Remember: ELI the ICE man.",
+      reference: "Inductive Phase"
     },
     {
-      id: "ohm-004",
+      id: "wave-004",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 15,
-      question: "A lamp connected to a 14-volt source draws 2 amps. What is the lamp's resistance?",
-      answers: ["28 Ohms", "12 Ohms", "7 Ohms", "16 Ohms"],
-      correctIndex: 2,
-      explanation: "Using R = V / I: 14 Volts / 2 Amps = 7 Ohms.",
-      reference: "Ohm's Law Calculation"
+      question: "In a purely capacitive circuit, does current lead or lag voltage?",
+      answers: ["Current leads by 90°", "Current lags by 90°", "They are in phase", "Current lags by 45°"],
+      correctIndex: 0,
+      explanation: "In a purely capacitive circuit, current leads voltage by 90 degrees. Remember: ELI the ICE man.",
+      reference: "Capacitive Phase"
     },
     {
-      id: "ohm-005",
+      id: "wave-005",
       difficulty: 4,
       pointValue: 500,
       timeLimit: 18,
-      question: "In a circuit with constant voltage, if you double the resistance, what happens to the current?",
-      answers: ["It doubles", "It stays the same", "It is cut in half", "It becomes zero"],
+      question: "An oscilloscope shows 5 complete cycles in 12.5ms. What is the frequency?",
+      answers: ["50Hz", "200Hz", "400Hz", "625Hz"],
       correctIndex: 2,
-      explanation: "Current and resistance are inversely proportional (I = V/R). If R doubles, I is halved.",
-      reference: "Ohm's Law Relationships"
+      explanation: "Frequency = cycles/time = 5 cycles / 0.0125 seconds = 400Hz.",
+      reference: "Frequency Measurement"
     }
   ],
 
-  "The Power Law": [
+  "Inductance": [
     {
-      id: "pwr-001",
+      id: "ind-001",
       difficulty: 1,
       pointValue: 100,
       timeLimit: 10,
-      question: "What is the basic formula for electrical power (Watt's Law)?",
-      answers: ["P = I x R", "P = V / I", "P = V x I", "P = V / R"],
+      question: "What unit is inductance measured in?",
+      answers: ["Farads", "Ohms", "Henrys", "Watts"],
       correctIndex: 2,
-      explanation: "Power (P) in Watts equals Voltage (V) multiplied by Current (I).",
-      reference: "Power Law Formula"
+      explanation: "Inductance is measured in Henrys (H). Inductors store energy in a magnetic field.",
+      reference: "Inductance Units"
     },
     {
-      id: "pwr-002",
+      id: "ind-002",
       difficulty: 2,
       pointValue: 200,
-      timeLimit: 15,
-      question: "A 28V circuit is drawing 10 amps. How much power is being consumed?",
-      answers: ["2.8 Watts", "280 Watts", "38 Watts", "0.35 Watts"],
-      correctIndex: 1,
-      explanation: "Using P = V x I: 28 Volts * 10 Amps = 280 Watts.",
-      reference: "Power Law Calculation"
+      timeLimit: 12,
+      question: "What is the formula for inductive reactance?",
+      answers: ["X_L = 2πfL", "X_L = 1/(2πfL)", "X_L = L/f", "X_L = f/L"],
+      correctIndex: 0,
+      explanation: "Inductive reactance X_L = 2πfL, where f is frequency and L is inductance.",
+      reference: "Inductive Reactance Formula"
     },
     {
-      id: "pwr-003",
+      id: "ind-003",
       difficulty: 3,
       pointValue: 300,
       timeLimit: 15,
-      question: "What is the alternate formula for power when you only know current and resistance?",
-      answers: ["P = I² / R", "P = R² / I", "P = I x R²", "P = I² x R"],
-      correctIndex: 3,
-      explanation: "Since V = IR, substitute (IR) for V in P=VI, which gives P = (IR)I, or P = I²R.",
-      reference: "Power Law Formula"
+      question: "What happens to inductive reactance when frequency increases?",
+      answers: ["It decreases", "It stays the same", "It increases", "It becomes zero"],
+      correctIndex: 2,
+      explanation: "Inductive reactance is directly proportional to frequency (X_L = 2πfL).",
+      reference: "Inductive Reactance"
     },
     {
-      id: "pwr-004",
-      difficulty: 3,
+      id: "ind-004",
+      difficulty: 4,
       pointValue: 400,
       timeLimit: 18,
-      question: "A 100-ohm resistor has 2 amps flowing through it. How much power is it dissipating?",
-      answers: ["200 Watts", "50 Watts", "400 Watts", "0.02 Watts"],
+      question: "A 0.5H inductor is in a 400Hz circuit. What is its inductive reactance?",
+      answers: ["200Ω", "628Ω", "1,257Ω", "2,513Ω"],
       correctIndex: 2,
-      explanation: "Using P = I² x R: (2 Amps * 2 Amps) * 100 Ohms = 400 Watts.",
-      reference: "Power Law Calculation"
+      explanation: "X_L = 2πfL = 2 × 3.14159 × 400 × 0.5 = 1,256.6Ω ≈ 1,257Ω.",
+      reference: "Reactance Calculation"
     },
     {
-      id: "pwr-005",
+      id: "ind-005",
       difficulty: 4,
       pointValue: 500,
       timeLimit: 18,
-      question: "What is the alternate formula for power when you only know voltage and resistance?",
-      answers: ["P = V² / R", "P = R² / V", "P = V x R²", "P = V² x R"],
-      correctIndex: 0,
-      explanation: "Since I = V/R, substitute (V/R) for I in P=VI, which gives P = V(V/R), or P = V²/R.",
-      reference: "Power Law Formula"
+      question: "What is the inductive reactance of a coil at DC (0Hz)?",
+      answers: ["Infinite", "Very high", "Zero", "Same as AC"],
+      correctIndex: 2,
+      explanation: "At DC (0Hz), X_L = 2π × 0 × L = 0Ω. An inductor acts as a short circuit to DC.",
+      reference: "Inductor DC Behavior"
     }
   ],
 
   // ==================== ROUND 2: DOUBLE JEOPARDY ====================
 
-  "Series Circuits": [
+  "Capacitance": [
     {
-      id: "ser-201",
+      id: "cap-201",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "In a series circuit, the total resistance (Rt) is calculated by:",
-      answers: ["Averaging all resistors", "Using the smallest resistor value", "Adding all individual resistances", "Rt = (R1*R2)/(R1+R2)"],
-      correctIndex: 2,
-      explanation: "In a series circuit, resistances add up: Rt = R1 + R2 + R3 + ...",
-      reference: "Series Circuit Rules"
+      question: "What unit is capacitance measured in?",
+      answers: ["Henrys", "Farads", "Ohms", "Coulombs"],
+      correctIndex: 1,
+      explanation: "Capacitance is measured in Farads (F). Capacitors store energy in an electric field.",
+      reference: "Capacitance Units"
     },
     {
-      id: "ser-202",
+      id: "cap-202",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 14,
-      question: "What is the rule for current in a series circuit?",
-      answers: ["It is the same through all components", "It divides at each component", "It is highest at the last component", "It is zero at the end of the loop"],
-      correctIndex: 0,
-      explanation: "A series circuit has only one path, so the current (flow) must be the same everywhere.",
-      reference: "Series Circuit Rules"
+      question: "What is the formula for capacitive reactance?",
+      answers: ["X_C = 2πfC", "X_C = 1/(2πfC)", "X_C = C/f", "X_C = fC"],
+      correctIndex: 1,
+      explanation: "Capacitive reactance X_C = 1/(2πfC), where f is frequency and C is capacitance.",
+      reference: "Capacitive Reactance Formula"
     },
     {
-      id: "ser-203",
+      id: "cap-203",
       difficulty: 4,
       pointValue: 600,
       timeLimit: 16,
-      question: "Three resistors are in series: 10 ohms, 20 ohms, and 30 ohms. What is the total resistance?",
-      answers: ["30 Ohms", "5.45 Ohms", "60 Ohms", "6000 Ohms"],
+      question: "What happens to capacitive reactance when frequency increases?",
+      answers: ["It increases", "It stays the same", "It decreases", "It becomes infinite"],
       correctIndex: 2,
-      explanation: "Rt = R1 + R2 + R3. 10 + 20 + 30 = 60 Ohms.",
-      reference: "Series Circuit Calculation"
+      explanation: "Capacitive reactance is inversely proportional to frequency (X_C = 1/(2πfC)).",
+      reference: "Capacitive Reactance"
     },
     {
-      id: "ser-204",
+      id: "cap-204",
       difficulty: 4,
       pointValue: 800,
       timeLimit: 18,
-      question: "This law states that the sum of all voltage drops in a series loop equals the source voltage.",
-      answers: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Watt's Law", "Kirchhoff's Voltage Law (KVL)"],
-      correctIndex: 3,
-      explanation: "Kirchhoff's Voltage Law (KVL) describes how voltage is distributed in a closed loop.",
-      reference: "Kirchhoff's Voltage Law"
+      question: "Three 30μF capacitors are wired in series. What is the total capacitance?",
+      answers: ["90μF", "30μF", "10μF", "15μF"],
+      correctIndex: 2,
+      explanation: "For equal capacitors in series: C_T = C/N = 30μF/3 = 10μF.",
+      reference: "Series Capacitance"
     },
     {
-      id: "ser-205",
+      id: "cap-205",
       difficulty: 5,
       pointValue: 1000,
       timeLimit: 20,
-      question: "If one of three bulbs connected in series burns out (fails open), what happens to the other two?",
-      answers: ["They get brighter", "They get dimmer", "They both go out", "They are unaffected"],
-      correctIndex: 2,
-      explanation: "A burned-out bulb creates an open circuit, breaking the only path for current and stopping all flow.",
-      reference: "Series Circuit Troubleshooting"
+      question: "What safety concern exists when working with capacitors after power is removed?",
+      answers: ["They can overheat", "They retain charge and can shock", "They emit radiation", "They become magnetized"],
+      correctIndex: 1,
+      explanation: "Capacitors retain their charge and can deliver a dangerous shock. They must be discharged first.",
+      reference: "Capacitor Safety"
     }
   ],
 
-  "Parallel Circuits": [
+  "Impedance & Power": [
     {
-      id: "par-201",
+      id: "imp-201",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "What is the rule for voltage in a parallel circuit?",
-      answers: ["It is the same across all branches", "It divides equally among all branches", "It is zero across all branches", "It is highest at the first branch"],
-      correctIndex: 0,
-      explanation: "Components in parallel are connected across the same two points, so they must have the same voltage.",
-      reference: "Parallel Circuit Rules"
+      question: "What is impedance?",
+      answers: ["Only resistance", "Only reactance", "Total opposition to AC current", "Power consumption"],
+      correctIndex: 2,
+      explanation: "Impedance (Z) is the total opposition to current flow in an AC circuit, combining resistance and reactance.",
+      reference: "Impedance Definition"
     },
     {
-      id: "par-202",
+      id: "imp-202",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 14,
-      question: "This law states that the total current entering a junction must equal the total current leaving it.",
-      answers: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Watt's Law", "Kirchhoff's Voltage Law (KVL)"],
-      correctIndex: 1,
-      explanation: "Kirchhoff's Current Law (KCL) describes how current splits in parallel branches.",
-      reference: "Kirchhoff's Current Law"
+      question: "A series circuit has R = 30Ω and X_L = 40Ω. What is the impedance?",
+      answers: ["70Ω", "10Ω", "50Ω", "35Ω"],
+      correctIndex: 2,
+      explanation: "Z = √(R² + X²) = √(30² + 40²) = √(900 + 1600) = √2500 = 50Ω.",
+      reference: "Impedance Calculation"
     },
     {
-      id: "par-203",
+      id: "imp-203",
       difficulty: 4,
       pointValue: 600,
       timeLimit: 16,
-      question: "Two 10-ohm resistors are in parallel. What is their total resistance?",
-      answers: ["20 Ohms", "10 Ohms", "5 Ohms", "0 Ohms"],
-      correctIndex: 2,
-      explanation: "Using (R1*R2)/(R1+R2): (10*10)/(10+10) = 100/20 = 5 Ohms. Total R is always less than the smallest branch.",
-      reference: "Parallel Circuit Calculation"
+      question: "What is power factor?",
+      answers: ["Voltage divided by current", "Real power divided by apparent power", "Reactive power only", "Current times resistance"],
+      correctIndex: 1,
+      explanation: "Power factor = Real Power (W) / Apparent Power (VA) = cos(θ).",
+      reference: "Power Factor"
     },
     {
-      id: "par-204",
+      id: "imp-204",
       difficulty: 4,
       pointValue: 800,
       timeLimit: 18,
-      question: "In a parallel circuit, total current (It) is calculated by:",
-      answers: ["Using the smallest branch current", "Averaging all branch currents", "Adding all individual branch currents", "It = I1 x I2 x I3..."],
-      correctIndex: 2,
-      explanation: "Total current is the sum of the currents in each branch: It = I1 + I2 + I3 + ...",
-      reference: "Parallel Circuit Rules"
+      question: "An AC circuit has 1000VA apparent power and 800W real power. What is the power factor?",
+      answers: ["1.25", "0.8", "1.0", "0.64"],
+      correctIndex: 1,
+      explanation: "Power factor = P/S = 800W/1000VA = 0.8 or 80%.",
+      reference: "Power Factor Calculation"
     },
     {
-      id: "par-205",
+      id: "imp-205",
       difficulty: 5,
       pointValue: 1000,
       timeLimit: 20,
-      question: "If one of three bulbs connected in parallel burns out (fails open), what happens to the other two?",
-      answers: ["They get brighter", "They get dimmer", "They both go out", "They are unaffected"],
-      correctIndex: 3,
-      explanation: "Each parallel branch is independent. An open in one branch does not affect the others.",
-      reference: "Parallel Circuit Troubleshooting"
+      question: "Why is low power factor undesirable in aircraft electrical systems?",
+      answers: ["It causes overheating only", "It requires larger generators and wiring", "It reduces voltage", "It increases frequency"],
+      correctIndex: 1,
+      explanation: "Low power factor requires larger generators and wiring for the same real power, increasing weight and losses.",
+      reference: "Power Factor Effects"
     }
   ],
 
-  "Multimeter & Troubleshooting": [
+  "Three-Phase & Transformers": [
     {
-      id: "mtr-201",
+      id: "tph-201",
       difficulty: 2,
       pointValue: 200,
       timeLimit: 12,
-      question: "To measure voltage (VDC), a multimeter must be connected:",
-      answers: ["In series with the circuit", "In parallel (across) the component", "With the circuit power OFF", "In the AMPS jack"],
-      correctIndex: 1,
-      explanation: "Voltage is a measurement of potential difference, so the meter must be placed in parallel (across) the points.",
-      reference: "Multimeter Usage"
+      question: "In a three-phase system, by how many degrees are the phases separated?",
+      answers: ["90 degrees", "180 degrees", "120 degrees", "60 degrees"],
+      correctIndex: 2,
+      explanation: "Three-phase systems have three waveforms separated by 120 degrees.",
+      reference: "Three-Phase Basics"
     },
     {
-      id: "mtr-202",
+      id: "tph-202",
       difficulty: 3,
       pointValue: 400,
       timeLimit: 14,
-      question: "To measure current (AMPS), a multimeter must be connected:",
-      answers: ["In series (in-line) with the circuit", "In parallel (across) the component", "With the circuit power OFF", "In the VOLTS jack"],
-      correctIndex: 0,
-      explanation: "Current is a measure of flow, so the circuit must be opened and the meter placed in series (in-line).",
-      reference: "Multimeter Usage"
+      question: "Why do transformers only work with AC and not DC?",
+      answers: ["DC has too much power", "Transformers require a changing magnetic field", "DC would damage the windings", "Transformers need higher voltage"],
+      correctIndex: 1,
+      explanation: "Transformers require a changing magnetic field to induce voltage. DC creates a static field.",
+      reference: "Transformer Operation"
     },
     {
-      id: "mtr-203",
+      id: "tph-203",
       difficulty: 4,
       pointValue: 600,
       timeLimit: 16,
-      question: "What is the most critical safety step before measuring resistance (Ohms)?",
-      answers: ["Set the meter to the highest range", "Verify the meter's battery is good", "Ensure all circuit power is OFF", "Use alligator clips for safety"],
-      correctIndex: 2,
-      explanation: "An ohmmeter sends its own voltage. Measuring a powered circuit will, at minimum, destroy the meter.",
-      reference: "Multimeter Safety"
+      question: "A Wye-connected generator has 115V phase voltage. What is the line voltage?",
+      answers: ["115V", "200V", "230V", "66V"],
+      correctIndex: 1,
+      explanation: "In Wye: V_line = V_phase × 1.732 = 115V × 1.732 ≈ 200V.",
+      reference: "Wye Connection"
     },
     {
-      id: "mtr-204",
+      id: "tph-204",
       difficulty: 4,
       pointValue: 800,
       timeLimit: 18,
-      question: "A technician reads 'OL' or 'Infinity' on their ohmmeter when checking a wire. This indicates:",
-      answers: ["A 'short circuit' to ground", "A good, low-resistance wire", "An 'open circuit' or break", "The wire has high current"],
+      question: "What happens if one phase is lost in a three-phase motor?",
+      answers: ["Motor stops instantly", "Motor runs backwards", "Motor overheats (single-phasing)", "No effect"],
       correctIndex: 2,
-      explanation: "'OL' (Over Limit) means the resistance is too high to measure, indicating a break (an open circuit).",
-      reference: "Troubleshooting Opens"
+      explanation: "Single-phasing causes the motor to overheat and potentially fail due to unbalanced operation.",
+      reference: "Three-Phase Faults"
     },
     {
-      id: "mtr-205",
+      id: "tph-205",
       difficulty: 5,
       pointValue: 1000,
       timeLimit: 20,
-      question: "A technician reads 0.2 Ohms when measuring from a wire to the aircraft airframe. This indicates:",
-      answers: ["A 'short circuit' to ground", "A good, isolated wire", "An 'open circuit' in the wire", "The wire's normal resistance"],
-      correctIndex: 0,
-      explanation: "A very low resistance path from a wire to ground (airframe) is the definition of a short circuit.",
-      reference: "Troubleshooting Shorts"
+      question: "A transformer has a 10:1 turns ratio. If 1150V AC is applied, what is the secondary voltage?",
+      answers: ["11,500V", "115V", "1,150V", "10V"],
+      correctIndex: 1,
+      explanation: "V_secondary = V_primary / turns ratio = 1150V / 10 = 115V. This is a step-down transformer.",
+      reference: "Transformer Calculations"
     }
   ],
 
   // ==================== FINAL JEOPARDY ====================
 
   FINAL: {
-    cat: "Applied Circuit Troubleshooting",
+    cat: "AC System Troubleshooting",
     difficulty: 5,
     timeLimit: 30,
-    question: "A component does not work. A technician measures 28V at the component's positive terminal and 26V at its ground terminal (relative to airframe). The circuit breaker is NOT tripped. What is the most likely fault?",
+    question: "An aircraft AC motor runs but overheats rapidly and draws excessive current. A technician measures normal voltage on two phases but zero on the third phase. What is the most likely fault?",
     answers: [
-      "A short circuit in the power wire",
-      "A high-resistance (open) ground connection",
-      "A failed (open) component",
-      "A shorted (failed) component"
+      "The motor windings are shorted",
+      "Single-phasing due to an open phase",
+      "The motor bearings are seized",
+      "Power factor correction capacitor failed"
     ],
     correctIndex: 1,
-    explanation: "A good ground should read near 0V. Reading 26V on the ground wire means the ground path is open or has high resistance, and the voltage is 'floating' up to the supply voltage.",
-    reference: "Troubleshooting Ground Faults"
+    explanation: "Zero voltage on one phase indicates single-phasing - the motor tries to run on two phases, causing overheating and excessive current draw. This is a common three-phase fault.",
+    reference: "Three-Phase Motor Troubleshooting"
   }
 };
 

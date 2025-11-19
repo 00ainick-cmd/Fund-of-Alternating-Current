@@ -146,216 +146,230 @@
 (function(){
   // ---------- Data (embedded directly – no document.write) ----------
   const FIXED_CARDS = [
-  
+
   {
-    "term": "Voltage (V)",
-    "definition": "The electrical pressure or potential difference that causes electrons to flow, often symbolized as E (electromotive force) or V, and is measured in Volts (V) [4-6]. In aircraft, standard DC voltages are typically 14V or 28V [3, 4, 7, 8].",
-    "analogy": "The height of a waterfall or the water pressure in a hose [4-6, 9].",
+    "term": "Alternating Current (AC)",
+    "definition": "Electrical current that periodically reverses direction, typically following a sinusoidal waveform. In aircraft, AC systems operate at 400Hz and provide 115V/200V for efficient power distribution.",
+    "analogy": "Water sloshing back and forth in a pipe, versus DC which flows in one direction like a river.",
+    "unit": "AC Fundamentals",
+    "tags": "AC 101|fundamentals|waveforms"
+  },
+  {
+    "term": "Frequency (f)",
+    "definition": "The number of complete AC cycles per second, measured in Hertz (Hz). Aircraft use 400Hz AC because higher frequency allows smaller, lighter transformers and motors compared to 60Hz residential power.",
+    "analogy": "How many times per second the current completes a full back-and-forth cycle.",
+    "unit": "Hertz (Hz)",
+    "tags": "AC 101|waveforms|measurement"
+  },
+  {
+    "term": "Period (T)",
+    "definition": "The time required for one complete AC cycle, calculated as T = 1/f. For 400Hz aircraft systems, the period is 2.5 milliseconds.",
+    "analogy": "The duration of one complete swing of a pendulum back and forth.",
+    "unit": "Seconds (s)",
+    "tags": "AC 101|waveforms|calculation"
+  },
+  {
+    "term": "Peak Voltage (V_peak)",
+    "definition": "The maximum instantaneous voltage reached during an AC cycle, occurring at 90° and 270° of the sine wave. Peak voltage is 1.414 times the RMS voltage.",
+    "analogy": "The highest point of a wave crest or the deepest point of a wave trough.",
     "unit": "Volt (V)",
-    "tags": "DC 101|fundamentals|measurement"
+    "tags": "waveforms|measurement"
   },
   {
-    "term": "Current (I)",
-    "definition": "The flow rate of electrons (electrical charge) through a conductor, measured in Amperes (A) [7, 9-11]. Controlling current is essential for safe avionics operation [12].",
-    "analogy": "The flow rate or amount of water moving through a pipe or hose [9, 10, 13].",
-    "unit": "Ampere (A)",
-    "tags": "DC 101|fundamentals|measurement"
+    "term": "RMS Voltage (V_RMS)",
+    "definition": "Root Mean Square voltage - the effective DC equivalent value of AC voltage. RMS = Peak × 0.707. Aircraft 115V AC is an RMS value (peak is actually 162.6V).",
+    "analogy": "The 'average working value' of AC that does the same work as an equivalent DC voltage.",
+    "unit": "Volt (V)",
+    "tags": "waveforms|measurement|calculation"
   },
   {
-    "term": "Resistance (R)",
-    "definition": "The opposition or 'friction' to electron flow through a material, measured in Ohms ($\\Omega$) [9, 13-15]. Resistance is used to control current and protect sensitive avionics components [12, 16].",
-    "analogy": "Rocks in a riverbed that impede water flow, or the diameter of a hose (smaller hose = higher resistance) [9, 13, 14].",
-    "unit": "Ohm ($\\Omega$)",
-    "tags": "DC 101|fundamentals|measurement"
+    "term": "Phase Angle",
+    "definition": "The angular position in an AC cycle, measured in degrees (0° to 360°). Phase relationships between voltage and current are critical in AC circuit analysis.",
+    "analogy": "The position of a clock hand - 90° is quarter past, 180° is half past, etc.",
+    "unit": "Degrees (°)",
+    "tags": "waveforms|phase"
   },
   {
-    "term": "Ohm’s Law (V=I×R)",
-    "definition": "The fundamental mathematical relationship describing voltage, current, and resistance: Voltage equals Current multiplied by Resistance (V = I × R) [2, 10, 12, 17, 18]. This is the most important tool for troubleshooting electrical issues [12, 19].",
-    "analogy": "The backbone of every electrical problem solved in a small aircraft [19].",
-    "unit": "DC 102 (Formula)",
-    "tags": "formula|troubleshooting"
+    "term": "Inductance (L)",
+    "definition": "The property of a circuit that opposes changes in current by storing energy in a magnetic field, measured in Henrys (H). Found in motors, generators, transformers, and relays.",
+    "analogy": "Electrical inertia - like the momentum of a heavy flywheel that resists speeding up or slowing down.",
+    "unit": "Henry (H)",
+    "tags": "inductance|fundamentals"
   },
   {
-    "term": "Ohm’s Law Triangle",
-    "definition": "A visual memory aid used by technicians where V is placed at the top, and I and R are at the base; covering the desired variable reveals the correct formula [20, 21].",
-    "analogy": "A fast, foolproof method to recall the three core electrical relationships [20].",
-    "unit": "DC 102 (Tool)",
-    "tags": "formula|tool"
+    "term": "Inductive Reactance (X_L)",
+    "definition": "The opposition to AC current flow caused by inductance, calculated as X_L = 2πfL. Increases with frequency - inductors pass DC but oppose AC.",
+    "analogy": "A frequency-dependent resistance that gets stronger as AC frequency increases.",
+    "unit": "Ohm (Ω)",
+    "tags": "inductance|reactance|formula"
   },
   {
-    "term": "Ohm's Law (Current Formula)",
-    "definition": "A derived formula stating that Current equals Voltage divided by Resistance (I = V $\\div$ R) [10, 17, 22]. This is used to calculate the electrical load to select proper circuit protection [23].",
-    "analogy": "Finding the flow rate when you know the pressure and the size of the restriction [17].",
-    "unit": "DC 102 (Formula)",
-    "tags": "formula|troubleshooting"
+    "term": "ELI the ICE man",
+    "definition": "Memory aid for phase relationships: In inductors (L), voltage (E) leads current (I). In capacitors (C), current (I) leads voltage (E).",
+    "analogy": "ELI = voltage leads in inductors; ICE = current leads in capacitors.",
+    "unit": "AC Phase (Tool)",
+    "tags": "phase|formula|tool"
   },
   {
-    "term": "Ohm's Law (Resistance Formula)",
-    "definition": "A derived formula stating that Resistance equals Voltage divided by Current (R = V $\\div$ I) [14, 17, 22]. This is used to determine the resistance of components like light bulbs or heating elements [14, 20].",
-    "analogy": "Finding the size of the obstruction when you know the pressure and the flow rate [17].",
-    "unit": "DC 102 (Formula)",
-    "tags": "formula|troubleshooting"
+    "term": "Capacitance (C)",
+    "definition": "The ability to store electrical energy in an electric field between two conductive plates, measured in Farads (F). Used for filtering, power factor correction, and energy storage.",
+    "analogy": "An electrical storage tank that fills and empties with charge.",
+    "unit": "Farad (F)",
+    "tags": "capacitance|fundamentals"
   },
   {
-    "term": "Electrical Power (P)",
-    "definition": "The rate of doing work or consuming energy in a circuit, calculated primarily using P = V $\\times$ I [24-27]. Power calculations are critical for proper wire sizing and circuit breaker selection [2, 25, 28, 29].",
-    "analogy": "The volume or amount of work being produced, or the energy consumed by a device [24, 30, 31].",
+    "term": "Capacitive Reactance (X_C)",
+    "definition": "The opposition to AC current flow caused by capacitance, calculated as X_C = 1/(2πfC). Decreases with frequency - capacitors block DC but pass AC.",
+    "analogy": "A frequency-dependent resistance that gets weaker as AC frequency increases.",
+    "unit": "Ohm (Ω)",
+    "tags": "capacitance|reactance|formula"
+  },
+  {
+    "term": "Impedance (Z)",
+    "definition": "The total opposition to AC current flow, combining resistance and reactance: Z = √(R² + X²). Impedance is the AC equivalent of resistance.",
+    "analogy": "The total 'friction' in an AC circuit from all sources - resistance, inductance, and capacitance.",
+    "unit": "Ohm (Ω)",
+    "tags": "impedance|formula|calculation"
+  },
+  {
+    "term": "Resonance",
+    "definition": "The condition where inductive reactance equals capacitive reactance (X_L = X_C), causing them to cancel. At resonance, impedance equals resistance only.",
+    "analogy": "The frequency at which a circuit naturally 'vibrates' - like pushing a swing at just the right time.",
+    "unit": "AC Circuits (Concept)",
+    "tags": "resonance|circuits"
+  },
+  {
+    "term": "Real Power (P)",
+    "definition": "The actual power consumed and converted to useful work, measured in Watts (W). Calculated as P = VI × cos(θ) or P = VI × PF.",
+    "analogy": "The actual work being performed - the power that shows up on your electric bill.",
     "unit": "Watt (W)",
-    "tags": "DC 102|calculations|safety"
+    "tags": "power|calculation"
   },
   {
-    "term": "Watt's Law (Derived)",
-    "definition": "Alternative formulas derived from Ohm's Law and Power, such as P = I² $\\times$ R and P = V² $\\div$ R, useful when current or voltage measurements are difficult to obtain [25, 26, 32, 33].",
-    "analogy": "Alternative routes to calculate the work being done if you can't measure all the basic variables [32].",
-    "unit": "DC 102 (Formula)",
-    "tags": "formula|calculations"
+    "term": "Reactive Power (Q)",
+    "definition": "Power that oscillates between source and reactive components (inductors/capacitors) without doing useful work, measured in Volt-Amperes Reactive (VAR).",
+    "analogy": "Energy that sloshes back and forth but doesn't actually accomplish work.",
+    "unit": "VAR",
+    "tags": "power|calculation"
   },
   {
-    "term": "Conductor",
-    "definition": "Materials, typically metals like copper or aluminum, that allow electricity to flow easily because they have many free valence electrons and low resistance [14, 15, 34, 35].",
-    "analogy": "A clear, wide highway for the smooth flow of electrical current [34].",
-    "unit": "DC 101 (Material)",
-    "tags": "fundamentals|materials"
+    "term": "Apparent Power (S)",
+    "definition": "The total power supplied by the source, combining real and reactive power: S = VI, measured in Volt-Amperes (VA). This is what generators must be sized for.",
+    "analogy": "The total effort the source must provide, whether or not it all becomes useful work.",
+    "unit": "Volt-Ampere (VA)",
+    "tags": "power|calculation"
   },
   {
-    "term": "Insulator",
-    "definition": "Materials, such as rubber or plastic, that block or highly resist the flow of electricity, used in avionics for wire jackets and safety barriers [14, 34, 36].",
-    "analogy": "A physical barrier or safety fence confining the electrical current to its intended path [34, 37].",
-    "unit": "DC 101 (Material)",
-    "tags": "fundamentals|materials"
+    "term": "Power Factor (PF)",
+    "definition": "The ratio of real power to apparent power: PF = P/S = cos(θ). Ranges from 0 to 1; unity (1.0) means all power is doing useful work.",
+    "analogy": "The efficiency of power usage - like the percentage of your effort that actually accomplishes work.",
+    "unit": "Ratio (0-1)",
+    "tags": "power|power_factor"
   },
   {
-    "term": "Semiconductor",
-    "definition": "Materials, like silicon, with electrical properties between conductors and insulators, used in modern solid-state electronics like transistors and diodes where conductivity can be controlled [14, 34, 37, 38].",
-    "analogy": "The basis of all modern electronic components that can act as a controlled switch [34].",
-    "unit": "DC 101 (Material)",
-    "tags": "fundamentals|materials|devices"
+    "term": "Lagging Power Factor",
+    "definition": "When current lags behind voltage, caused by inductive loads like motors. This is the most common type in aircraft systems and requires power factor correction.",
+    "analogy": "The current is 'late to the party' compared to voltage.",
+    "unit": "Power Factor (Concept)",
+    "tags": "power_factor|troubleshooting"
   },
   {
-    "term": "Electron",
-    "definition": "Tiny negatively charged particles orbiting the atom's nucleus [39, 40]. The directed movement of valence electrons from atom to atom creates electrical current [41, 42].",
-    "analogy": "The moving charge carriers that make up electricity [41].",
-    "unit": "DC 101 (Physics)",
-    "tags": "atomic_theory"
+    "term": "Power Factor Correction",
+    "definition": "Adding capacitors to an inductive circuit to provide leading reactive power that cancels lagging reactive power, improving the power factor toward unity.",
+    "analogy": "Balancing the system so less total power is wasted on reactive components.",
+    "unit": "AC Power (Concept)",
+    "tags": "power_factor|maintenance"
   },
   {
-    "term": "Proton",
-    "definition": "Positively charged particle located within the nucleus of an atom [39, 40]. Protons contribute to the mass and stability of the atom [42].",
-    "analogy": "A fundamental positive charge at the core of matter [39].",
-    "unit": "DC 101 (Physics)",
-    "tags": "atomic_theory"
+    "term": "Transformer",
+    "definition": "A device that transfers electrical energy between circuits through electromagnetic induction, allowing voltage to be increased (step-up) or decreased (step-down).",
+    "analogy": "An electrical gear ratio - trading voltage for current or vice versa.",
+    "unit": "AC Device",
+    "tags": "transformers|devices"
   },
   {
-    "term": "Series Circuit",
-    "definition": "A configuration where components are connected end-to-end in a single, unbroken path [2, 43-46]. The same current flows through all components [43, 44, 46-48].",
-    "analogy": "A single chain of components; one failure stops the entire circuit [43, 46, 49].",
-    "unit": "DC 103 (Circuit Type)",
-    "tags": "circuit_type"
+    "term": "Turns Ratio",
+    "definition": "The ratio of primary to secondary windings in a transformer, determining voltage transformation: V_secondary/V_primary = N_secondary/N_primary.",
+    "analogy": "Like gear teeth - more turns on secondary = higher output voltage.",
+    "unit": "Ratio",
+    "tags": "transformers|formula"
   },
   {
-    "term": "Parallel Circuit",
-    "definition": "A configuration where components are connected across common voltage points, offering multiple independent current paths [2, 50-53]. The voltage is the same across all branches [53-56].",
-    "analogy": "Modern household wiring or aircraft distribution where turning off one device doesn't affect others [54, 57, 58].",
-    "unit": "DC 103 (Circuit Type)",
-    "tags": "circuit_type"
+    "term": "Three-Phase Power",
+    "definition": "Three AC waveforms separated by 120°, providing more efficient power delivery than single-phase. Standard in aircraft: 115/200V at 400Hz.",
+    "analogy": "Three pistons firing in sequence for smooth, continuous power delivery.",
+    "unit": "AC System",
+    "tags": "three_phase|fundamentals"
   },
   {
-    "term": "Complex Circuit",
-    "definition": "A combination of both series and parallel elements, common in avionics installations where safety and independent operation are required [2, 53-55].",
-    "analogy": "Wiring the power wire on multiple components in parallel, which then runs in series to a circuit breaker [54].",
-    "unit": "DC 103 (Circuit Type)",
-    "tags": "circuit_type"
+    "term": "Wye (Y) Connection",
+    "definition": "Three-phase configuration with a common neutral point. Line voltage = Phase voltage × 1.732. Provides both line-to-line and line-to-neutral voltages.",
+    "analogy": "Three branches meeting at a central point, like a Y intersection.",
+    "unit": "Three-Phase (Config)",
+    "tags": "three_phase|configuration"
   },
   {
-    "term": "Kirchhoff's Voltage Law (KVL)",
-    "definition": "States that the sum of all voltage drops around any closed loop in a circuit must equal the total supply voltage (or sum to zero) [2, 43, 59-61]. Essential for ensuring components receive correct voltage [62].",
-    "analogy": "The source voltage must be entirely consumed by the components in the loop [63].",
-    "unit": "DC 103 (Law)",
-    "tags": "law|series|troubleshooting"
+    "term": "Delta (Δ) Connection",
+    "definition": "Three-phase configuration forming a closed triangle with no neutral. Line current = Phase current × 1.732. Common in motor windings.",
+    "analogy": "Three branches forming a triangle, like the Greek letter delta.",
+    "unit": "Three-Phase (Config)",
+    "tags": "three_phase|configuration"
   },
   {
-    "term": "Kirchhoff's Current Law (KCL)",
-    "definition": "States that the total current entering a junction must equal the total current leaving the junction [2, 54, 64-66]. This ensures current is properly distributed across all parallel branches [67].",
-    "analogy": "A rule ensuring no current is lost or created at a junction point where wires meet [67].",
-    "unit": "DC 103 (Law)",
-    "tags": "law|parallel|troubleshooting"
+    "term": "Line Voltage",
+    "definition": "Voltage measured between any two phases in a three-phase system. In aircraft Wye systems: 200V (line-to-line).",
+    "analogy": "The voltage between two different 'hot' wires.",
+    "unit": "Volt (V)",
+    "tags": "three_phase|measurement"
   },
   {
-    "term": "Series Resistance Formula",
-    "definition": "Total resistance in a series circuit is the sum of all individual resistances: R_total = R₁ + R₂ + R₃ + ... [43, 49, 51, 68]. Adding components increases the total resistance [49, 68].",
-    "analogy": "Total friction is the sum of every rough spot the current encounters in its single path [68].",
-    "unit": "DC 103 (Formula)",
-    "tags": "formula|series"
+    "term": "Phase Voltage",
+    "definition": "Voltage measured between a phase and neutral in a Wye system. In aircraft: 115V (phase-to-neutral).",
+    "analogy": "The voltage from one 'hot' wire to the neutral or ground.",
+    "unit": "Volt (V)",
+    "tags": "three_phase|measurement"
   },
   {
-    "term": "Parallel Resistance Formula",
-    "definition": "Total resistance is the reciprocal of the sum of the individual reciprocals: 1/R_total = 1/R₁ + 1/R₂ + ... [54, 55, 69, 70]. The total resistance is always less than the smallest individual resistor [54, 69, 71].",
-    "analogy": "Adding multiple paths makes it easier for the current to flow, reducing the overall resistance [69].",
-    "unit": "DC 103 (Formula)",
-    "tags": "formula|parallel"
+    "term": "Single-Phasing",
+    "definition": "A fault condition where one phase of a three-phase system is lost, causing motors to overheat and draw excessive current on remaining phases.",
+    "analogy": "Like a three-cylinder engine running on only two cylinders - rough and damaging.",
+    "unit": "Fault (Three-Phase)",
+    "tags": "three_phase|fault|troubleshooting"
   },
   {
-    "term": "Open Circuit",
-    "definition": "A fault caused by a break or disconnection in the current path, resulting in infinite resistance (O.L.) and zero current flow (0 Amps) [2, 72-74].",
-    "analogy": "A dammed river or a broken wire; the current stops completely [72, 75].",
-    "unit": "DC 103 (Fault)",
-    "tags": "fault|troubleshooting"
+    "term": "Synchronous Speed",
+    "definition": "The speed of the rotating magnetic field in an AC motor, calculated as N_s = 120f/P (where f = frequency, P = poles). Determines maximum motor speed.",
+    "analogy": "The speed limit set by the frequency and motor design.",
+    "unit": "RPM",
+    "tags": "motors|formula"
   },
   {
-    "term": "Short Circuit",
-    "definition": "A dangerous fault where current takes an unintended low-resistance path, causing excessive current flow that can trip circuit protection or cause fires [2, 73, 76, 77].",
-    "analogy": "Electrons taking the least resistive path, such as through a carelessly dropped metal wrench across battery terminals [76].",
-    "unit": "DC 103 (Fault)",
-    "tags": "fault|safety"
+    "term": "Slip",
+    "definition": "The difference between synchronous speed and actual rotor speed in an induction motor, expressed as a percentage. Motors need slip to produce torque.",
+    "analogy": "How much the rotor 'falls behind' the rotating magnetic field.",
+    "unit": "Percentage (%)",
+    "tags": "motors|concept"
   },
   {
-    "term": "Voltage Drop",
-    "definition": "The reduction in voltage across a component in a circuit as energy is consumed, calculated using Ohm's Law (V = I $\\times$ R) [2, 47, 63]. High-resistance connections (corrosion) cause unwanted voltage drops [28, 78].",
-    "analogy": "The amount of pressure lost as water passes through a small pipe or filter [6, 62].",
-    "unit": "DC 103 (Concept)",
-    "tags": "troubleshooting"
+    "term": "True RMS Meter",
+    "definition": "A multimeter that accurately measures the RMS value of any AC waveform, not just pure sine waves. Essential for accurate AC measurements in aircraft systems.",
+    "analogy": "A 'smart' meter that correctly calculates effective values for any wave shape.",
+    "unit": "Tool",
+    "tags": "measurement|tool"
   },
   {
-    "term": "Multimeter",
-    "definition": "A handheld test instrument essential for avionics technicians used to measure fundamental electrical quantities: voltage, current, and resistance [2, 59, 79].",
-    "analogy": "The primary diagnostic tool, allowing technicians to interpret electrical system health [59, 80].",
-    "unit": "DC 103 (Tool)",
-    "tags": "tool|measurement"
+    "term": "Capacitor Safety",
+    "definition": "Capacitors retain charge after power is removed and can deliver dangerous shocks. Must be properly discharged before servicing any circuit containing capacitors.",
+    "analogy": "A loaded spring that can release its energy suddenly even after the system is 'off'.",
+    "unit": "Safety",
+    "tags": "safety|capacitance|maintenance"
   },
   {
-    "term": "Measuring Voltage (Procedure)",
-    "definition": "Voltage is measured by connecting the multimeter probes *across* (in parallel with) the component or circuit being tested [2, 6, 7, 51]. This must be done while the circuit is powered ON [81].",
-    "analogy": "Measuring the pressure difference between the inlet and outlet of a device [7].",
-    "unit": "DC 103 (Procedure)",
-    "tags": "multimeter|procedure"
-  },
-  {
-    "term": "Measuring Current (Procedure)",
-    "definition": "Current is measured by inserting the multimeter *into* (in series with) the circuit, physically breaking the current path so the flow runs through the meter [2, 13, 51, 82, 83]. This must be done carefully to avoid blowing fuses [2, 84].",
-    "analogy": "Cutting a pipe and routing the entire water flow through a flow meter [83, 84].",
-    "unit": "DC 103 (Procedure)",
-    "tags": "multimeter|procedure"
-  },
-  {
-    "term": "Measuring Resistance (Procedure)",
-    "definition": "Resistance is measured by connecting the multimeter probes across the component, but the circuit power must be completely OFF to prevent damage to the meter and ensure accurate results [17, 51, 85].",
-    "analogy": "Checking the impedance of a wire or component when it is completely isolated [85].",
-    "unit": "DC 103 (Procedure)",
-    "tags": "multimeter|procedure"
-  },
-  {
-    "term": "Electrostatic Discharge (ESD)",
-    "definition": "The rapid transfer of static electrical charge built up on an object [2, 86]. This poses a serious hazard as it can damage sensitive avionics components like microprocessors [2, 76, 87].",
-    "analogy": "The invisible static shock that can 'fry' delicate circuits [88].",
-    "unit": "DC 101 (Safety)",
-    "tags": "safety|maintenance"
-  },
-  {
-    "term": "ESD Precautions",
-    "definition": "Safety procedures, such as using grounding straps and anti-static mats, designed to safely discharge built-up static electricity before handling sensitive electronics [2, 89].",
-    "analogy": "Grounding oneself to prevent static discharge from destroying microprocessors [89, 90].",
-    "unit": "DC 101 (Safety)",
-    "tags": "safety|maintenance"
+    "term": "Current Transformer (CT)",
+    "definition": "A transformer used to safely measure high AC currents by producing a proportional low current in the secondary. Never leave CT secondary open while energized.",
+    "analogy": "A safe way to 'sample' high currents without putting the meter directly in the circuit.",
+    "unit": "Device",
+    "tags": "transformers|measurement|safety"
   }
   ];
 
